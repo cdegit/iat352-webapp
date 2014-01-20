@@ -1,0 +1,446 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+	font-size: 0.9em;
+	color: #fff;
+	background-color: #222;
+	margin: 0px;
+}
+
+a {
+	color: #20e2c8;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #fff;
+}
+
+a:hover {
+	color: #038b79;
+}
+
+#main {
+	width: 85%;
+	margin-left: 15%;
+	margin-top: 45px;
+}
+
+header {
+	/*width: 100%;*/
+	padding: 4px;
+	padding-left: 10px;
+	border-bottom: 1px solid #038b79;
+}
+
+#logo {
+	display: inline;
+	float: left;
+	font-size: 2em;
+	font-weight: 300;
+	margin-right: 40px;
+	color: #fff;
+	margin-top: -4px;
+}
+
+header nav {
+	display: inline;
+}
+
+header nav a {
+	font-size: 1.7em;
+	font-weight: 300;
+	color: #20e2c8;
+}
+
+header nav a:visited {
+	color: #20e2c8;
+}
+
+header nav a:hover {
+	color: #038b79;
+}
+
+nav ul {
+	margin: 0px;
+	padding: 0px;
+	display: inline;
+}
+
+nav ul li {
+	list-style: none;
+	float: left;
+	margin-right: 20px;
+}
+
+#registration h2 {
+	margin: 0px;
+	padding-left: 5px;
+	padding-top: 4px;
+	padding-bottom: 6px;
+	font-size: 1.25em;
+	font-weight: 300;
+	background-color:#038b79;
+	color:#fff;
+}
+
+#registration {
+	display: none;
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	height: 250px;
+	width: 350px;
+	border-radius: 3px;
+	background-color: #06a18d;
+	color:#fff;
+	z-index: 1;
+}
+
+#openRegistrationButton {
+	position: absolute;
+	right: 20px;
+	top: 35px;
+}
+
+#openRegistrationButton:hover {
+	color:#fff;
+}
+
+#closeRegistrationButton {
+	text-decoration: none;
+	position: absolute;
+	font-size: 1.2em;
+	top: 5px;
+	right: 8px;
+}
+
+#registration p {
+	margin: 6px;
+	margin-top: 12px;
+	text-align:center;
+}
+
+.buttonLinks {
+	color:#fff;
+	text-decoration: none;
+	background:#038b79;
+	padding:8px;
+	margin:7px;
+	border-radius:2px;
+}
+
+#registrationLinks {
+	text-align:center;
+	position: absolute;
+	bottom: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
+#registration a:visited {
+	color:#fff;
+}
+
+#registration a:hover {
+	color:#fff;
+}
+
+#registrationForm {
+	display: none;
+	margin: 8px;
+}
+
+#registrationForm td {
+	width: 50%;
+}
+
+#registrationForm input {
+	border: 1px solid #038b79;
+	border-radius: 5px;
+	padding: 4px;
+
+}
+
+#registrationForm #registerButton {
+	background-color: #038b79;
+	color: #fff;
+	padding: 10px;
+	font-size: 1.1em;
+	position: absolute;
+	right: 30px;
+	bottom: 25px;
+}
+
+#registrationForm #registrationBack {
+	position: absolute;
+	bottom: 25px;
+} 
+
+#search {
+	clear: both;
+}
+
+article {
+	margin-top: 30px;
+	margin-left: 20px;
+}
+
+article article {
+	margin: 0px;
+}
+
+#userlist ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+#userlist ul li {
+	list-style: none;
+	font-weight: 300;
+}
+
+#userlist #nameSort li {
+	margin-bottom: 20px;
+}
+
+#userlist #nameSort li a {
+	color: #20e2c8;
+	font-size: 1.4em;
+}
+
+#userlist #nameSort li a:hover {
+	color: #038b79;
+}
+
+#userlist ul li p {
+	font-size: 1em;
+	margin-left: 10px;
+	margin-top: 3px;
+	color: #ccc;
+}
+
+#userlist form {
+	float: right;
+	margin-right: 120px;
+}
+
+#userlist .topicName {
+	font-size: 1.4em;
+	font-weight: 300;
+	border-bottom: 1px solid #038b79;
+	width: 35%;
+}
+
+#userlist #topicSort ul {
+	margin-left: 20px;
+	margin-bottom: 40px;
+}
+
+#userlist #topicSort a {
+	color: #20e2c8;
+}
+
+#userlist #topicSort a:hover {
+	color: #038b79;
+}
+
+#userProfile {
+	position: relative;
+}
+
+#userStats {
+	position: absolute;
+	top: -8px;
+	left: 140px;
+	width: 450px;
+}
+
+#userBio h1 {
+	font-weight: 300;
+	font-size: 1.7em;
+	color: #20e2c8;
+	margin: 0px;
+	display: inline;
+}
+
+#userBio h2 {
+	font-weight: 300;
+	font-size: 1.1em;
+	margin-left: 12px;
+	color: #ccc;
+	display: inline;
+
+}
+
+.usersLessons {
+	min-height: 200px;
+}
+
+.usersLessons h3 {
+	font-weight: 300;
+	font-size: 1.4em;
+	border-bottom: 1px solid #038b79;
+	width: 35%;
+}
+
+.lesson {
+	background: #444;
+	width: 230px;
+	height: 340px;
+	border-radius: 2px;
+	position: relative;
+}
+
+.lesson .lessonTitle {
+	font-weight: 300;
+}
+
+.lesson a {
+	color: #20e2c8;
+}
+
+.lesson .lessonTitle a:hover {
+	color: #038b79;
+}
+
+.lesson .authorImage {
+	position: absolute;
+	top: 70px;
+	left: 10px;
+	border: 1px solid #000;
+}
+
+.lesson .lessonTitle {
+	position: absolute;
+	top: 95px;
+	left: 80px;
+}
+
+.lesson .lessonExcerpt {
+	margin-top: 40px;
+	margin-left: 10px;
+	margin-right: 10px;
+	font-size: 0.9em;
+}
+
+.lesson .lessonTopics {
+	width: 94%;
+	background-color: #038b79;
+	position: absolute;
+	bottom: 0px;
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	font-size: 0.8em;
+	color: #fff;
+	padding: 3%;
+}
+
+.lesson .lessonTopics a {
+	color: #fff;
+}
+
+.lesson .lessonTopics a:hover {
+	color: #20e2c8;
+}
+
+#lessonSort {
+	position: absolute;
+	left: 0px;
+}
+
+#lessonSort ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+#lessonSort ul ul {
+	margin-left: 20px;
+}
+
+#lessonSort li {
+	list-style: none;
+}
+
+#lessonSort .topicCategory {
+	background: #06a18d;
+	padding: 4px;
+	width: 150px;
+	font-weight: 300;
+	font-size: 1.1em;
+	border-bottom: 1px solid #20e2c8;
+}
+
+#lessonSort .dropdownTopics {
+	display: none;
+	/*background-color: #038b79;*/
+	padding: 3px;
+}
+
+#lessonSort .dropdownTopics li {
+	
+}
+
+#fullLesson {
+	width: 70%;
+	position: relative;
+}
+
+#fullLesson #lessonInfo {
+	width: 45%;
+	border-bottom: 1px solid #038b79;
+}
+
+#fullLesson h1 {
+	font-size: 1.9em;
+	font-weight: 300;
+	display: inline;
+}
+
+#fullLesson h2 {
+	font-size: 1.3em;
+	font-weight: 300;
+	display: inline;
+	margin-left: 20px;
+}
+
+#fullLesson h3 {
+	font-size: 1.1em;
+	font-weight: 300;
+}
+
+#fullLesson a {
+	color: #20e2c8;
+}
+
+#fullLesson a:hover {
+	color: #038b79;
+}
+
+#fullLesson #lessonContent {
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+#editProfile h1 {
+	font-size: 1.4em;
+	font-weight: 300;
+}
+
+#editProfile table {
+	width: 500px;
+}
+
+#editProfile form input[readonly] {
+	background: #ccc;
+}
+
+#editProfile #updateButton {
+	background-color: #038b79;
+	color: #fff;
+	padding: 10px;
+	font-size: 1.1em;
+	border: 1px solid #038b79;
+	border-radius: 5px;
+}

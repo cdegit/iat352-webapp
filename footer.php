@@ -1,17 +1,24 @@
 <?php
 
+// Draws the userbar if a user is currently logged in
+// The contents of the userbar differ depending on user type
+// Closes the tags opened in header.php
 function drawFooter() {
 	?>
 
 		</div><!-- main -->
 
-		<!-- userbar.php -->
-		<!-- only show if user is logged in -->
 		<?php if (isset($_SESSION['valid_user'])) { ?>
 		<div id = "userbar">
 			<div id = "userbarInfo">
 				<img src="http://placehold.it/120x120" alt="user's icon" />
-				<h2><?php echo ucwords($_SESSION['valid_user']); ?></h2>
+				<h2>
+					<?php if ($_SESSION['user_type'] == "contributor") { ?>
+						<a href="controller.php?action=user&name=<?php echo $_SESSION['valid_user']; ?>"><?php echo ucwords($_SESSION['valid_user']); ?></a>
+					<?php } else { ?>
+						<?php echo ucwords($_SESSION['valid_user']); ?>
+					<?php } ?>
+				</h2>
 			</div>
 			<div id = "userbarLinks">
 				<?php if ($_SESSION['user_type'] == "learner") { ?>

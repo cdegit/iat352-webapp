@@ -1,7 +1,7 @@
 <?php
-
+// prints out posts in their nice preview version
 function printLesson($connection, $posts) {
-
+	// get the topics for these posts
 	foreach ($posts as $post) {
 		// get topics
 		$query = "SELECT topicName FROM post_topics WHERE postID = " . $post['id'];
@@ -16,13 +16,14 @@ function printLesson($connection, $posts) {
 		<h1 class="lessonTitle"><a href="controller.php?action=lesson&id=<?php echo $post['id']; ?>"><?php echo $post['title']; ?></a></h1>
 		<p class="lessonExcerpt">
 			<?php 
+			// get a short excerpt from the content so we can an idea of what the article is about
 			$excerpt = (strlen(trim($post['content'])) > 383) ? substr($post['content'],0,380).'...' : $post['content']; 
 			echo $excerpt; 
 			?>
 		</p>
 		<?php if (count($topics) > 0) { ?>
 		<div class="lessonTopics">
-				<?php 
+				<?php // if there are topics, print out links to each
 				foreach($topics as $key=>$value) {
 					echo '<a href="controller.php?action=displaylessons&topic=' . urlencode($value[0]) . '">';
 					echo ucwords($value[0]);

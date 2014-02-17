@@ -2,7 +2,7 @@
 
 require_once("lesson.php");
 
-// read in data for this user from the file and display it
+// read in data for this user and display it
 function displayProfile($connection, $username) {
 	$query = "SELECT name, description, twitter, facebook, flickr, userType FROM users WHERE name = '" . $username . "'";
 
@@ -14,7 +14,9 @@ function displayProfile($connection, $username) {
 		// success! 
 		$user = mysqli_fetch_array($result, MYSQLI_ASSOC);
 	} else {
-		echo "couldnt do it";
+		$data = array('action' => 'error', 'ermessage' => "Sorry, we were unable to access our database.");
+		$url = 'controller.php' . "?" . http_build_query($data);
+		header('Location: ' . $url);
 		exit();
 	}
 
@@ -23,13 +25,14 @@ function displayProfile($connection, $username) {
 		echo "Sorry, this user does not have a profile.";
 	} else {
 
+		// get all posts for this user
 		$postsQuery = "SELECT id, author, title, content FROM posts WHERE author='" . $user['name'] . "'";
 		$postsResult = mysqli_query($connection, $postsQuery);
 		if ($postsResult) {
 			$posts = mysqli_fetch_all($postsResult, MYSQLI_ASSOC);
 		}
 
-		// now to figure out how to get the topics
+		// get all topics for this user
 		$topicsQuery = "SELECT DISTINCT post_topics.topicName FROM posts, post_topics WHERE post_topics.postId = posts.id and posts.author = '" . $user['name'] . "'";
 		$topicsResult = mysqli_query($connection, $topicsQuery);
 		if($topicsResult) {
@@ -65,11 +68,10 @@ function displayProfile($connection, $username) {
 							?>
 							<a href="processUnfollow.php?unfollow=<?php echo $user['name']; ?>">Unfollow <?php echo ucwords($user['name']); ?> </a> 
 							<?php
-						} else {
-						?>
-						<a href="processFollow.php?follow=<?php echo $user['name']; ?>">Follow <?php echo ucwords($user['name']); ?> </a>
-						<?php } ?> 
-					<?php } ?> 
+						} else { ?>
+							<a href="processFollow.php?follow=<?php echo $user['name']; ?>">Follow <?php echo ucwords($user['name']); ?> </a>
+						<?php }  
+					} ?> 
 				</div>
 			</div>
 
@@ -77,7 +79,7 @@ function displayProfile($connection, $username) {
 				<h3>Lessons</h3>
 				<?php 
 				if (count($posts) == 0) { ?>
-				<p><?php echo ucwords($user['name']); ?> has not written any lessons yet. <!-- Suggest a lesson. --></p>
+				<p><?php echo ucwords($user['name']); ?> has not written any lessons yet.</p>
 				<?php } else {
 					printLesson($connection, $posts); 
 				}

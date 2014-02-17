@@ -13,18 +13,14 @@ require_once("error.php");
 require_once("dashboard.php");
 
 session_start();
-// should really move database connection here; don't want to do it on every page. Or do I? 
 
-$dbhost = "localhost"; 
-$dbuser = "cdegit"; 
-$dbpass = "cdegit"; 
-$dbname = "cdegit"; 
+require("db.php");
 @$connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname); 
 
 if(mysqli_connect_errno()) {
-	echo "Unable to access the database.";
-	// move them somewhere else
-	// or maybe just have a error page that takes a string to print out? Idk. 
+	$data = array('action' => 'error', 'ermessage' => "Sorry, we were unable to access our database.");
+	$url = 'controller.php' . "?" . http_build_query($data);
+	header('Location: ' . $url);
 	exit();
 }
 	
@@ -58,34 +54,37 @@ if (isset($_GET['action'])) {
 			displayLesson($connection, $_GET['id']);
 			break;
 
-		// Edit the profile of a particular user
-		// In the future, a user will only be able to edit their own profile
-		// For now, however, as I don't have sessions set up to track the current user
-		// Any user's profile can be edited
+		// Edit the profile of the current user
 		case 'editprofile':
 			if (isset($_SESSION['valid_user'])) {
 				editProfile($connection, $_SESSION['valid_user']);
 			}
 			break;
 
+		// Display the form to create a new post
+		// If the currently logged in user is a contributor
 		case 'newpost':
-			if (isset($_SESSION['valid_user'])) {
+			if (isset($_SESSION['valid_user']) && $_SESSION['user_type'] == "contributor") {
 				createNewPost($connection);
 			}
 			break;
 
+		// Display the form to edit the post given by id
+		// If the currently logged in user is a contributor
 		case 'editpost':
-			if (isset($_SESSION['valid_user'])) {
+			if (isset($_SESSION['valid_user']) && $_SESSION['user_type'] == "contributor") {
 				editPost($connection, $_GET['id']);
 			}
 			break;
 
+		// Something went wrong, display a pretty error
 		case 'error':
 			displayError($_GET['ermessage']);
 			break;
 
+		// Display the dashboard of the current user if they're a learner
 		case 'dashboard':
-			if (isset($_SESSION['valid_user'])) {
+			if (isset($_SESSION['valid_user']) && $_SESSION['user_type'] == "learner") {
 				displayDashboard($connection);
 			}
 			break;

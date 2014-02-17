@@ -1,14 +1,13 @@
 <?php
 session_start();
 
-$dbhost = "localhost"; 
-$dbuser = "cdegit"; 
-$dbpass = "cdegit"; 
-$dbname = "cdegit"; 
+require("db.php");
 @$connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname); 
 
 if(mysqli_connect_errno()) {
-	echo "Unable to access the database.";
+	$data = array('action' => 'error', 'ermessage' => "Sorry, we were unable to access our database.");
+	$url = 'controller.php' . "?" . http_build_query($data);
+	header('Location: ' . $url);
 	exit();
 }
 
@@ -38,8 +37,6 @@ if (isset($_GET['follow'])) {
 			// Redirect
 			$url = 'controller.php?action=displaylessons&topic=' . urlencode($_GET['follow']);
 			header('Location: ' . $url);
-		} else {
-			// display error about trying to follow illegal values
 		}
 	}
 

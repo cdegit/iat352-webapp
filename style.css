@@ -507,12 +507,30 @@ article article {
 }
 
 #editProfile h1 {
-	font-size: 1.4em;
 	font-weight: 300;
+	font-size: 1.7em;
+	margin-bottom: 7px;
+	border-bottom: 1px solid #038b79;
+	width: 20%;
 }
 
 #editProfile table {
 	width: 500px;
+}
+
+#editProfile form input[type=text], #editProfile form input[type=email]{
+	border: 0px;
+	border-radius: 2px;
+	height: 30px;
+	font-size: 1.2em;
+	padding: 3px;
+}
+
+#editProfile form textarea {
+	border: 0px;
+	border-radius: 2px;
+	font-size: 1em;
+	font-family: 'Open Sans', sans-serif;
 }
 
 #editProfile form input[readonly] {

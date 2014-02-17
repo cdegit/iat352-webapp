@@ -2,15 +2,13 @@
 
 // Displays lessons based on a particular tag (or no tag)
 // Also displays the sorting menu
-// Most of this functionality has yet to be implemented; for now, it's just a placeholder to show how things will work 
 function displayLessons($connection, $tag) {
 
-	if ($tag == "all") {
+	if ($tag == "all") { // if no topic has been selected, just show everything
 		$query = "SELECT id, author, title, content FROM posts";
-	} else {
+	} else { // if a topic has been selected, display only posts from that topic
 		$query = "SELECT posts.id, posts.author, posts.title, posts.content, post_topics.postId, post_topics.topicName FROM posts, post_topics WHERE post_topics.postId = posts.id and post_topics.topicName = '" . rawurldecode($tag) . "'";
 	}
-
 	$result = mysqli_query($connection, $query);
 
 	$posts = [];
@@ -19,25 +17,24 @@ function displayLessons($connection, $tag) {
 		// success! 
 		$posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 	} else {
-		echo "couldnt do it";
+		$data = array('action' => 'error', 'ermessage' => "Sorry, we were unable to access our database.");
+		$url = 'controller.php' . "?" . http_build_query($data);
+		header('Location: ' . $url);
 		exit();
 	}
 
-	// Get Columns and Topics and stuff
+	// Get categories, we'll get topics for each category afterwards
 	$categoryQuery = "SELECT DISTINCT category FROM topics ORDER BY category ASC";
 	$categoryResults = mysqli_query($connection, $categoryQuery);
 
-	$t = [];
-	if ($categoryResults) {
-		$t = mysqli_fetch_all($categoryResults, MYSQLI_ASSOC);
-	} else {
-		echo "couldnt do it";
-		exit();
-	}
-
 	$categories = [];
-	foreach ($t as $ts) {
-		$categories[] = $ts['category'];
+	if ($categoryResults) {
+		$categories = mysqli_fetch_all($categoryResults, MYSQLI_ASSOC);
+	} else {
+		$data = array('action' => 'error', 'ermessage' => "Sorry, we were unable to access our database.");
+		$url = 'controller.php' . "?" . http_build_query($data);
+		header('Location: ' . $url);
+		exit();
 	}
 
 	?>
@@ -47,13 +44,15 @@ function displayLessons($connection, $tag) {
 				<?php 
 				foreach($categories as $category) {
 					echo "<li class='topicCategory'>";
-					echo ucwords($category);
+					echo ucwords($category['category']);
 					echo "<ul class='dropdownTopics'>";
 
-					$topicsQuery = "SELECT name FROM topics WHERE category = '" . $category . "' ORDER BY name ASC";
+					// get the topics for this category
+					$topicsQuery = "SELECT name FROM topics WHERE category = '" . $category['category'] . "' ORDER BY name ASC";
 					$topicsResults = mysqli_query($connection, $topicsQuery);
 					$categoryTopics = mysqli_fetch_all($topicsResults, MYSQLI_ASSOC);
 
+					// print out each topic within this category
 					foreach($categoryTopics as $catTopic) {
 						echo "<li>";
 						echo "<a href='controller.php?action=displaylessons&topic=" . urlencode($catTopic["name"]) . "'>";
@@ -61,7 +60,6 @@ function displayLessons($connection, $tag) {
 						echo "</a></li>";
 
 					}
-					// print out each topic within this category
 					echo "</ul>";
 					echo "</li>";
 				}
@@ -71,6 +69,7 @@ function displayLessons($connection, $tag) {
 		<?php if($tag != "all") { ?>
 			<h2 id="lessonsTagTitle">Displaying Lessons from: <?php echo ucwords($tag); ?></h2>
 			<?php if($_SESSION['user_type'] == 'learner') { 
+				// if the current user is a learner, give them the option to follow this topic
 				$testQuery = "SELECT learnerName, topicName FROM following_topics WHERE learnerName = '" . $_SESSION['valid_user'] . "' AND topicName = '" . rawurldecode($tag) . "'";
 				$testResult = mysqli_query($connection, $testQuery);
 				if($testResult) {
@@ -86,6 +85,7 @@ function displayLessons($connection, $tag) {
 		} ?>
 		<div id="lessonsSet">
 		<?php
+		// display the lessons
 		printLesson($connection, $posts);
 		?>
 		</div>
@@ -95,9 +95,8 @@ function displayLessons($connection, $tag) {
 }
 
 // Display a particular lesson
-// Currently just a placeholder to show how things will work
 function displayLesson($connection, $id) {
-
+	// get the data for this lesson based on the provided id
 	$query = "SELECT id, author, title, content, timestamp FROM posts WHERE id = " . $id;
 	$result = mysqli_query($connection, $query);
 
@@ -107,10 +106,13 @@ function displayLesson($connection, $id) {
 		// success! 
 		$post = mysqli_fetch_array($result, MYSQLI_ASSOC);
 	} else {
-		echo "couldnt do it";
+		$data = array('action' => 'error', 'ermessage' => "Sorry, we were unable to access our database.");
+		$url = 'controller.php' . "?" . http_build_query($data);
+		header('Location: ' . $url);
 		exit();
 	}
 
+	// get the topics for this lesson
 	$topicsQuery = "SELECT topicName FROM post_topics WHERE postId = " . $id;
 	$topicsResult = mysqli_query($connection, $topicsQuery);
 
@@ -119,7 +121,7 @@ function displayLesson($connection, $id) {
 		$topics = mysqli_fetch_all($topicsResult);
 	}
 
-
+	// Print out the lesson
 	?>
 	<article id="fullLesson">
 		<div id="lessonInfo">
@@ -135,6 +137,7 @@ function displayLesson($connection, $id) {
 			<h3>Topics: 
 					<?php 
 					foreach($topics as $key=>$value) {
+						// if there are any, print out links to all the topics
 						echo '<a href="controller.php?action=displaylessons&topic=' . urlencode($value[0]) . '">';
 						echo ucwords($value[0]);
 						echo "</a>";

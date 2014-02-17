@@ -1,10 +1,8 @@
 <?php
 // display users in order determined by the sort type
 function displayUsers($connection, $sort) {
-
-
+	// get all users who are contributors
 	$query  = "SELECT name FROM users WHERE userType = 'contributor'"; 
-
 	$result = mysqli_query($connection, $query);
 
 	$users = [];
@@ -13,7 +11,9 @@ function displayUsers($connection, $sort) {
 		// success! 
 		$users = mysqli_fetch_all($result, MYSQLI_ASSOC);
 	} else {
-		echo "Could not connect to the database";
+		$data = array('action' => 'error', 'ermessage' => "Sorry, we were unable to access our database.");
+		$url = 'controller.php' . "?" . http_build_query($data);
+		header('Location: ' . $url);
 		exit();
 	}
 
@@ -43,12 +43,15 @@ function displayUsers($connection, $sort) {
 				<li>
 					<a href="controller.php?action=user&name=<?php echo $user["name"]; ?>" class="userName"><?php echo ucwords($user["name"]); ?></a>
 				<?php 
+				// get the topics each user writes about
+				// these are obtained from the posts they have written
 				$topicsQuery = "SELECT DISTINCT post_topics.topicName FROM posts, post_topics WHERE post_topics.postId = posts.id and posts.author = '" . $user['name'] . "'";
 				$topicsResult = mysqli_query($connection, $topicsQuery);
 				if($topicsResult) {
 					$topics = mysqli_fetch_all($topicsResult, MYSQLI_ASSOC);
 				}
 
+				// display the topics
 				if (count($topics) > 0) {
 					echo "<p>Writes about: ";
 				
@@ -71,14 +74,12 @@ function displayUsers($connection, $sort) {
 			}
 			break;
 
-		// If sorted by topics, display each topic (from the predefined list in topics.txt) and list each user who writes about that topic
+		// If sorted by topics, display each topic and list each user who writes about that topic
 		case "topics":
-			// maybe get all topics for each user? 
-			// better to get all users for each topic
 			// TODO: break up into categories
 
+			// get all topics
 			$query2  = "SELECT name FROM topics"; 
-
 			$result2 = mysqli_query($connection, $query2);
 
 			$topics = [];
@@ -87,19 +88,25 @@ function displayUsers($connection, $sort) {
 				// success! 
 				$topics = mysqli_fetch_all($result2, MYSQLI_ASSOC);
 			} else {
-				echo "There are no topics to display.";
+				$data = array('action' => 'error', 'ermessage' => "Sorry, we were unable to access our database.");
+				$url = 'controller.php' . "?" . http_build_query($data);
+				header('Location: ' . $url);
 				exit();
 			}
 
 			echo '<ul id="topicSort">';
 
+			// for each topic, get all user users that write about it
 			foreach($topics as $topic) {
 				$q = "SELECT DISTINCT posts.author FROM posts, post_topics WHERE post_topics.topicName ='" . $topic['name'] . "' AND posts.id = post_topics.postId";
 				$r = mysqli_query($connection, $q);
 				if($r) {
 					$topicUsers = mysqli_fetch_all($r, MYSQLI_ASSOC);
 				} else {
-					echo "fail";
+					$data = array('action' => 'error', 'ermessage' => "Sorry, we were unable to access our database.");
+					$url = 'controller.php' . "?" . http_build_query($data);
+					header('Location: ' . $url);
+					exit();
 				}
 
 			// Only display the topics that have users writing about them

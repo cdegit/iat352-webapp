@@ -1,14 +1,11 @@
 <?php 
-$dbhost = "localhost"; 
-$dbuser = "cdegit"; 
-$dbpass = "cdegit"; 
-$dbname = "cdegit"; 
+require("db.php");
 @$connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname); 
 
 if(mysqli_connect_errno()) {
-	echo "Unable to access the database.";
-	// move them somewhere else
-	// or maybe just have a error page that takes a string to print out? Idk. 
+	$data = array('action' => 'error', 'ermessage' => "Sorry, we were unable to access our database.");
+	$url = 'controller.php' . "?" . http_build_query($data);
+	header('Location: ' . $url);
 	exit();
 }
 
@@ -18,10 +15,6 @@ if (isset($_POST["submit"])) {
 
 	// just want to store values in new array
 	foreach ($_POST as $key => $value) {
-		// no point in saving the submit value, so don't include it in the data to be written to the file
-		if ($value == "Update") {
-			break;
-		}
 
 		// for each value in $_POST, if set, add to data to store. Otherwise, add an empty string. 
 		if (isset($value)) {
@@ -37,10 +30,10 @@ if (isset($_POST["submit"])) {
 		$query .= " WHERE name='" . $userdata['name'] . "'"; // name is primary key
 	$result = mysqli_query($connection, $query);
 
-	if ($result) {
-		// success! 
-		echo "success";
-	} else {
+	if (!$result) {
+		$data = array('action' => 'error', 'ermessage' => "Sorry, we were unable to access our database.");
+		$url = 'controller.php' . "?" . http_build_query($data);
+		header('Location: ' . $url);
 		exit();
 	}
 

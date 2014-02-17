@@ -2,17 +2,14 @@
 
 session_start();
 
-// put in protected file later
-$dbhost = "localhost"; 
-$dbuser = "cdegit"; 
-$dbpass = "cdegit"; 
-$dbname = "cdegit"; 
+require("db.php");
 @$connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname); 
 
+// If there is an error when attempting to connect to the database, redirect the user to an error page
 if(mysqli_connect_errno()) {
-	echo "Unable to access the database.";
-	// move them somewhere else
-	// or maybe just have a error page that takes a string to print out? Idk. 
+	$data = array('action' => 'error', 'ermessage' => "Sorry, we were unable to access our database.");
+	$url = 'controller.php' . "?" . http_build_query($data);
+	header('Location: ' . $url);
 	exit();
 }
 
@@ -22,11 +19,6 @@ if (isset($_POST["submit"])) {
 
 	// just want to store values in new array
 	foreach ($_POST as $key => $value) {
-		// no point in saving the submit value, so don't include it in the data to be written to the file
-		if ($value == "Register") {
-			break;
-		}
-
 		// for each value in $_POST, if set, add to data to store. Otherwise, add an empty string. 
 		if (isset($value)) {
 			$userdata[$key] = $value;
@@ -41,10 +33,9 @@ if (isset($_POST["submit"])) {
 	$userQuery = "SELECT name FROM users WHERE name = '" . strtolower($userdata['name']) . "'";
 	$userResult = mysqli_query($connection, $userQuery);
 	
-	if ($userResult) {
+	if ($userResult) { 
 		$userR = mysqli_fetch_array($userResult, MYSQLI_ASSOC);
-		print_r($userR);
-		if ($userR['name'] == strtolower($userdata['name'])) {
+		if ($userR['name'] == strtolower($userdata['name'])) { // if the query didn't return an empty set
 			$data = array('action' => 'error', 'ermessage' => "A user with this name already exists!");
 			$url = 'controller.php' . "?" . http_build_query($data);
 			header('Location: ' . $url);
@@ -52,24 +43,21 @@ if (isset($_POST["submit"])) {
 		}	
 	}
 
-	// TODO: check if this user is already registered. 
-	$userdata["email"] = addslashes($userdata["email"]); // do this to all
-
-	// First, should check to make sure email doesn't already exist in database
-	// Do password match checking in Javascript
+	$userdata["name"] = addslashes(strtolower($userdata["name"]));
+	$userdata["email"] = addslashes($userdata["email"]);
 
 	 $query  = "INSERT INTO users ("; 
 		$query .= "  email, name, password, userType";
 		$query .= ") VALUES ("; 
-		$query .= "  '" . $userdata["email"] . "', '". strtolower($userdata["name"]) . "', '" . sha1($userdata["pass"]) . "', '" . $userdata["userType"] . "'";
+		$query .= "  '" . $userdata["email"] . "', '". $userdata["name"] . "', '" . sha1($userdata["pass"]) . "', '" . $userdata["userType"] . "'";
 		$query .= ")"; 
 	
 	$result = mysqli_query($connection, $query);
 
-	if ($result) {
-		// success! 
-	} else {
-		echo "couldnt do it";
+	if (!$result) {
+		$data = array('action' => 'error', 'ermessage' => "Sorry, we weren't able to register you.");
+		$url = 'controller.php' . "?" . http_build_query($data);
+		header('Location: ' . $url);
 		exit();
 	}
 
@@ -82,7 +70,7 @@ if (isset($_POST["submit"])) {
 
 	$url = 'controller.php';
 	header('Location: ' . $url);
-} else {
+} else { // if there was nothing in $_POST
 	$data = array('action' => 'error', 'ermessage' => "Sorry, you cannot access this file.");
 	$url = 'controller.php' . "?" . http_build_query($data);
 	header('Location: ' . $url);

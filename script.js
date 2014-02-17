@@ -63,6 +63,7 @@ $(document).ready(function() {
 		$(this).children("ul").slideToggle();
 	});
 
+	// check to make sure that the two passwords match before allowing the form to be processed
 	$("#registerButton").click(function(event) {
 		var pass1 = document.forms["registration"]["pass"].value;
 		var pass2 = document.forms["registration"]["confirmPass"].value;

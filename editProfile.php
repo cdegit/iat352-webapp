@@ -1,6 +1,16 @@
 <?php
 	
-function editProfile($username) {
+function editProfile($connection, $username) {
+
+	$query = "SELECT name, email, description, twitter, facebook, flickr FROM users WHERE name = '" . $_SESSION['valid_user'] . "'";
+	$result = mysqli_query($connection, $query);
+
+	if ($result) {
+		$user = mysqli_fetch_array($result, MYSQLI_ASSOC);
+	} else {
+		echo ":(";
+	}
+
 	$users = [];
 
 	// Read all users in from userdata.txt
@@ -28,9 +38,7 @@ function editProfile($username) {
 		}
 	}
 
-	if ($currentUser == 0) {
-		echo '<p>Sorry, this user does not exist</p>';
-	} else {
+
 		// print out the form, prefilled with data where it exists
 		?>
 		<article id="editProfile">
@@ -40,19 +48,15 @@ function editProfile($username) {
 				<table>
 					<tr>
 						<td><label for="name">Username:</label></td>
-						<td><input type="text" name="name" value="<?php echo rtrim($currentUser[0]); ?>" required readonly /></td>
+						<td><input type="text" name="name" value="<?php echo $user['name']; ?>" required readonly /></td>
 					</tr>
 					<tr>
 						<td><label for="email">Email:</label></td>
-						<td><input type="email" name="email" value="<?php echo rtrim($currentUser[1]); ?>" required readonly /></td>
+						<td><input type="email" name="email" value="<?php echo $user['email']; ?>" required readonly /></td>
 					</tr>
 					<tr>
 						<td><label for="bio">Bio:</label></td>
-						<td><textarea name="bio" value="" rows=4 cols=17 ><?php echo rtrim($currentUser[5]); ?></textarea></td>
-					</tr>
-					<tr>
-						<td><label for="topics">Topics:</label></td>
-						<td><input type="text" name="topics" value="<?php echo rtrim($currentUser[6]); ?>" /></td><!-- Probably just use a bunch of checkboxes instead -->
+						<td><textarea name="bio" value="" rows=4 cols=17 ><?php echo $user['description']; ?></textarea></td>
 					</tr>
 			  	</table>
 				<br />
@@ -60,7 +64,7 @@ function editProfile($username) {
 			</form>
 		</article>
 		<?php
-	}
+	
 }
 
 ?>

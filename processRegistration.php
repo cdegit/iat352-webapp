@@ -1,4 +1,21 @@
 <?php
+
+session_start();
+
+// put in protected file later
+$dbhost = "localhost"; 
+$dbuser = "cdegit"; 
+$dbpass = "cdegit"; 
+$dbname = "cdegit"; 
+@$connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname); 
+
+if(mysqli_connect_errno()) {
+	echo "Unable to access the database.";
+	// move them somewhere else
+	// or maybe just have a error page that takes a string to print out? Idk. 
+	exit();
+}
+
 if (isset($_POST["submit"])) {
 	// Loop through all the values in $_POST and add them to a new array
 	$userdata = [];
@@ -12,47 +29,64 @@ if (isset($_POST["submit"])) {
 
 		// for each value in $_POST, if set, add to data to store. Otherwise, add an empty string. 
 		if (isset($value)) {
-			$userdata[] = $value;
+			$userdata[$key] = $value;
 		} else {
-			$userdata[] = "";
+			$userdata[$key] = "";
 		}
 	}
 
-	// For now, we don't have a bio for this user or topics they are interested in. 
-	//Just add empty values so the form doesn't break.
-	$userdata[] = ''; // Bio
-	$userdata[] = ''; // Topics
+	$userdata['name'] = strtolower($userdata['name']);
 
-	// use implode to create string, add " | " between array values 
-	$formattedData = implode(" | ", $userdata);
+	// Check to make sure that this user doesn't already exist
+	$userQuery = "SELECT name FROM users WHERE name = '" . strtolower($userdata['name']) . "'";
+	$userResult = mysqli_query($connection, $userQuery);
+	
+	if ($userResult) {
+		$userR = mysqli_fetch_array($userResult, MYSQLI_ASSOC);
+		print_r($userR);
+		if ($userR['name'] == strtolower($userdata['name'])) {
+			$data = array('action' => 'error', 'ermessage' => "A user with this name already exists!");
+			$url = 'controller.php' . "?" . http_build_query($data);
+			header('Location: ' . $url);
+			exit();
+		}	
+	}
 
 	// TODO: check if this user is already registered. 
-	// append this to the file to add the data for the new user
+	$userdata["email"] = addslashes($userdata["email"]); // do this to all
 
-	$file = "userdata.txt";
+	// First, should check to make sure email doesn't already exist in database
+	// Do password match checking in Javascript
 
-	$firstEntry = true;
-	if (file_exists( "userdata.txt" )) {	// If this is the first user being entered, we don't want the extra new line
-		$firstEntry = false;
-	}
+	 $query  = "INSERT INTO users ("; 
+		$query .= "  email, name, password, userType";
+		$query .= ") VALUES ("; 
+		$query .= "  '" . $userdata["email"] . "', '". strtolower($userdata["name"]) . "', '" . sha1($userdata["pass"]) . "', '" . $userdata["userType"] . "'";
+		$query .= ")"; 
+	
+	$result = mysqli_query($connection, $query);
 
-	if ($handle = fopen($file, 'a')) {
-		if (!$firstEntry) {
-			fwrite($handle, "\r\n"); 		// Add a line break to indicate that we are entering the data for a new user
-		}
-		fwrite($handle, $formattedData);	// Write the user's data to the file
-		fclose($handle);
+	if ($result) {
+		// success! 
 	} else {
-
+		echo "couldnt do it";
+		exit();
 	}
 
+	mysqli_close($connection);
 
-	// user is redirected to the profile settings page where they can optionally add more information (bio and topics)
-	// this is done to avoid confronting the user with a long form which might scare them off
-	$url = 'controller.php?action=editprofile&name=' . $userdata[0];
+	// should also automatically log in the user
+	// already know that they have authenticated; they just created everything
+	$_SESSION['valid_user'] = $userdata["name"];
+	$_SESSION['user_type'] = $userdata["userType"];
+
+	$url = 'controller.php';
 	header('Location: ' . $url);
 } else {
-	echo "Error";
+	$data = array('action' => 'error', 'ermessage' => "Sorry, you cannot access this file.");
+	$url = 'controller.php' . "?" . http_build_query($data);
+	header('Location: ' . $url);
+	exit();
 }
 
 ?>		

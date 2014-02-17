@@ -1,7 +1,10 @@
 $(document).ready(function() {
 
-	$("#registration").css("left", $( document ).width() / 2 - $( "#registration" ).width() / 2);
-	$("#registration").css("top", $( document ).height() / 2 - $( "#registration" ).height());
+	$("#registration").css("left", $( window ).width() / 2 - $( "#registration" ).width() / 2);
+	$("#registration").css("top", $( window ).height() / 2 - $( "#registration" ).height());
+
+	$("#login").css("left", $( window ).width() / 2 - $( "#login" ).width() / 2);
+	$("#login").css("top", $( window ).height() / 2 - $( "#login" ).height());
 
 	// Add click handlers for registration links
 	$("#registerContributor").click(function(event) {
@@ -46,7 +49,29 @@ $(document).ready(function() {
 		$("#registration").hide();
 	});
 
+	$("#openLoginButton").click(function(event) {
+		event.preventDefault();
+		$("#login").show();
+	});	
+
+	$("#closeLoginButton").click(function(event) {
+		event.preventDefault();
+		$("#login").hide();
+	});
+
 	$(".topicCategory").click(function(event) {
 		$(this).children("ul").slideToggle();
+	});
+
+	$("#registerButton").click(function(event) {
+		var pass1 = document.forms["registration"]["pass"].value;
+		var pass2 = document.forms["registration"]["confirmPass"].value;
+
+		var password = document.getElementById("registerPassword");
+		if (pass1 != pass2) {
+			password.setCustomValidity("The passwords you have provided do not match.");
+		} else {
+			password.setCustomValidity('');
+		}
 	});
 });

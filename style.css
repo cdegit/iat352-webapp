@@ -1,3 +1,7 @@
+html {
+	height: 100%;
+}
+
 body {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 400;
@@ -5,15 +9,12 @@ body {
 	color: #fff;
 	background-color: #222;
 	margin: 0px;
+	height: 100%;
 }
 
 a {
 	color: #20e2c8;
 	text-decoration: none;
-}
-
-a:visited {
-	color: #fff;
 }
 
 a:hover {
@@ -73,18 +74,7 @@ nav ul li {
 	margin-right: 20px;
 }
 
-#registration h2 {
-	margin: 0px;
-	padding-left: 5px;
-	padding-top: 4px;
-	padding-bottom: 6px;
-	font-size: 1.25em;
-	font-weight: 300;
-	background-color:#038b79;
-	color:#fff;
-}
-
-#registration {
+.authPopup {
 	display: none;
 	position: absolute;
 	right: 20px;
@@ -94,7 +84,32 @@ nav ul li {
 	border-radius: 3px;
 	background-color: #06a18d;
 	color:#fff;
-	z-index: 1;
+	z-index: 1;	
+}
+
+.authPopup h2 {
+	margin: 0px;
+	padding-left: 5px;
+	padding-top: 4px;
+	padding-bottom: 6px;
+	font-size: 1.25em;
+	font-weight: 300;
+	background-color:#038b79;
+	color:#fff;	
+}
+
+#login {
+	height: 200px;
+}
+
+#openLoginButton {
+	position: absolute;
+	right: 100px;
+	top: 35px;
+}
+
+#openLoginButton:hover, #closeLoginButton:hover {
+	color: #fff;
 }
 
 #openRegistrationButton {
@@ -107,7 +122,7 @@ nav ul li {
 	color:#fff;
 }
 
-#closeRegistrationButton {
+#closeRegistrationButton, #closeLoginButton {
 	text-decoration: none;
 	position: absolute;
 	font-size: 1.2em;
@@ -152,18 +167,22 @@ nav ul li {
 	margin: 8px;
 }
 
-#registrationForm td {
+#loginForm {
+	margin: 8px;
+}
+
+.authPopup td {
 	width: 50%;
 }
 
-#registrationForm input {
+.authPopup input {
 	border: 1px solid #038b79;
 	border-radius: 5px;
 	padding: 4px;
 
 }
 
-#registrationForm #registerButton {
+.authPopup #registerButton, .authPopup #loginButton {
 	background-color: #038b79;
 	color: #fff;
 	padding: 10px;
@@ -233,6 +252,10 @@ article article {
 	width: 35%;
 }
 
+#userlist .userTopics {
+	font-size: 1em !important; 
+}
+
 #userlist #topicSort ul {
 	margin-left: 20px;
 	margin-bottom: 40px;
@@ -285,12 +308,21 @@ article article {
 	width: 35%;
 }
 
+#lessonsSet {
+	clear: both;
+	width: 75%;
+	margin-top: 25px;
+}
+
 .lesson {
 	background: #444;
-	width: 230px;
-	height: 340px;
+	width: 275px;
+	height: 390px;
 	border-radius: 2px;
 	position: relative;
+	float: left;
+	margin-right: 30px;
+	margin-bottom: 30px;
 }
 
 .lesson .lessonTitle {
@@ -312,14 +344,27 @@ article article {
 	border: 1px solid #000;
 }
 
-.lesson .lessonTitle {
+.lesson .lessonAuthor {
 	position: absolute;
 	top: 95px;
 	left: 80px;
+	font-weight: 300;
+	font-size: 1.17em;
+	color: #fff;
+}
+
+.lesson .lessonAuthor a {
+	color: #fff;
+}
+
+.lesson .lessonTitle {
+	margin-top: 35px;
+	margin-left: 10px;
+	margin-bottom: 5px;
 }
 
 .lesson .lessonExcerpt {
-	margin-top: 40px;
+	margin-top: 10px;
 	margin-left: 10px;
 	margin-right: 10px;
 	font-size: 0.9em;
@@ -347,7 +392,7 @@ article article {
 
 #lessonSort {
 	position: absolute;
-	left: 0px;
+	right: 1px;
 }
 
 #lessonSort ul {
@@ -363,13 +408,24 @@ article article {
 	list-style: none;
 }
 
+#lessonsTagTitle {
+	font-weight: 300;
+	display: inline;
+}
+
+#followTopicLink {
+	display:inline;
+	margin-left: 10px;
+}
+
 #lessonSort .topicCategory {
 	background: #06a18d;
 	padding: 4px;
-	width: 150px;
+	width: 200px;
 	font-weight: 300;
 	font-size: 1.1em;
 	border-bottom: 1px solid #20e2c8;
+	clear: both;
 }
 
 #lessonSort .dropdownTopics {
@@ -378,18 +434,35 @@ article article {
 	padding: 3px;
 }
 
-#lessonSort .dropdownTopics li {
-	
+#lessonSort .dropdownTopics li a {
+	color: #fff;
+}
+
+#lessonSort .dropdownTopics li a:hover {
+	color: #20e2c8;
 }
 
 #fullLesson {
-	width: 70%;
+	width: 65%;
 	position: relative;
+	background: #444;
+	border-radius:2px;
 }
 
 #fullLesson #lessonInfo {
 	width: 45%;
 	border-bottom: 1px solid #038b79;
+	background: #038b79;
+	padding-left: 2%;
+	padding-top: 2%;
+	width:98%;
+	border-radius:2px;
+}
+
+#editLink {
+	position: absolute;
+	top: 7px;
+	right: 7px;
 }
 
 #fullLesson h1 {
@@ -406,8 +479,14 @@ article article {
 }
 
 #fullLesson h3 {
-	font-size: 1.1em;
+	font-size: 1em;
 	font-weight: 300;
+	margin-top:2px;
+	margin-bottom:10px;
+}
+
+#fullLesson #lessonInfo a:hover {
+	color: #fff;
 }
 
 #fullLesson a {
@@ -421,6 +500,10 @@ article article {
 #fullLesson #lessonContent {
 	margin-left: 20px;
 	margin-top: 20px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+	font-size: 0.9em;
 }
 
 #editProfile h1 {
@@ -443,4 +526,85 @@ article article {
 	font-size: 1.1em;
 	border: 1px solid #038b79;
 	border-radius: 5px;
+}
+
+#userbar {
+	background: #00695b;
+	border-right:2px solid #038b79;
+	width: 14%;
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+}
+
+#userbar #userbarInfo {
+	text-align: center;
+	margin: 10px;
+}
+
+#userbar #userbarInfo h2 {
+	margin-top: 5px;
+	font-weight: 300;
+	font-size: 1.5em;
+}
+
+#userbar #userbarLinks {
+	margin: 10px;
+}
+
+#userbar #userbarLinks h3 {
+	font-weight: 300;
+	font-size: 1.1em;
+}
+
+#userbar #userbarLinks h3 a {
+	color: #fff;	
+}
+
+#userbar #userbarLinks h3 a:hover {
+	color: #20e2c8;
+}
+
+#createPost form #createPostTitle {
+	border: 0px;
+	border-radius: 2px;
+	width: 20%;
+	height: 30px;
+	font-size: 1.2em;
+	padding: 3px;
+}
+
+#createPost form #createPostContent {
+	border-radius: 2px;
+	font-size: 1em;
+	font-family: 'Open Sans', sans-serif;
+}
+
+#createPost form #createPostButton {
+	background-color: #038b79;
+	color: #fff;
+	padding: 10px;
+	font-size: 1.1em;
+	border: 0px;
+	border-radius: 5px;
+}
+
+#createPost h1 {
+	font-weight: 300;
+	font-size: 1.7em;
+	margin-bottom: 7px;
+	border-bottom: 1px solid #038b79;
+	width: 20%;
+}
+
+#createPost h2 {
+	font-weight: 300;
+	font-size: 1.4em;
+	margin-bottom: 7px;
+	border-bottom: 1px solid #038b79;
+	width: 20%;
+}
+
+.paginationNavigation {
+	clear: both;
 }

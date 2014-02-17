@@ -19,17 +19,40 @@ function drawHeader() {
 
 				<nav>
 					<ul>
-						<li><a href="controller.php?action=displaylessons&sort=topics">Lessons</a></li>
+						<li><a href="controller.php?action=displaylessons&topic=all">Lessons</a></li>
 						<li><a href="controller.php?action=displayusers&sort=name">Users</a></li>
 					</ul>
 				</nav>
 
 				<!-- search bar here -->
 				<div id="search"></div>
-
+				
 				<!-- login/register link -->
+				<?php if(!isset($_SESSION['valid_user'])) { ?>
+				<a href="#" id="openLoginButton" class="buttonLinks" >Login</a>
+				<div id="login" class="authPopup">
+					<h2>Login</h2>
+					<a href="#" id="closeLoginButton">X</a>
+					<div id="loginForm">
+						<form name="login" action="<?php echo "processLogin.php"?>" method="POST"><!-- Make https later -->
+							<table>
+								<tr>
+									<td><label for="name">Username:</label></td>
+									<td><input type="text" name="name" value="" required /></td>
+								</tr>
+								<tr>
+									<td><label for="pass">Password:</label></td>
+									<td><input type="password" name="pass" value="" required /></td>
+								</tr>
+						  	</table>
+							<br />
+						  	<input type="submit" name="submit" id="loginButton" value="Login" />
+						</form>
+					</div>
+				</div>
+
 				<a href="#" id="openRegistrationButton" class="buttonLinks" >Register</a> <!-- Clicking will bring up registration -->
-				<div id="registration">
+				<div id="registration" class="authPopup">
 					<h2>Register</h2>
 					<a href="#" id="closeRegistrationButton">X</a>
 					<div id="registrationIntro">
@@ -38,7 +61,7 @@ function drawHeader() {
 						<div id="registrationLinks"><a href="" id="registerContributor" class="buttonLinks">Contributor</a> <a href="" id="registerLearner" class="buttonLinks">Learner</a></div>
 					</div>
 					<div id="registrationForm">
-						<form action="processRegistration.php" method="POST">
+						<form name="registration" action="processRegistration.php" method="POST">
 							<table>
 								<tr>
 									<td><label for="name">Username:</label></td>
@@ -50,7 +73,7 @@ function drawHeader() {
 								</tr>
 								<tr>
 									<td><label for="pass">Password:</label></td>
-									<td><input type="password" name="pass" value="" required /></td>
+									<td><input type="password" name="pass" value="" id="registerPassword" required /></td>
 								</tr>
 								<tr>
 									<td><label for="confirmPass">Confirm Password:</label></td>
@@ -64,6 +87,8 @@ function drawHeader() {
 						</form>
 					</div>
 				</div>
+
+				<?php } ?>
 			</header>
 			<?php 
 			} 

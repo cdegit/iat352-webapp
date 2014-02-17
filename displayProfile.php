@@ -1,60 +1,91 @@
 <?php
+
+require_once("lesson.php");
+
 // read in data for this user from the file and display it
-function displayProfile($username) {
-	$users = [];
+function displayProfile($connection, $username) {
+	$query = "SELECT name, description, twitter, facebook, flickr, userType FROM users WHERE name = '" . $username . "'";
 
-	// Read all users in from userdata.txt
-	$file = "userdata.txt";
-	if ($handle = fopen($file, 'r')) {
-		// read each line of userdata into a new element of $users
-		while(!feof($handle)) {
-			$users[] = fgets($handle);
-		}
+	$result = mysqli_query($connection, $query);
 
-		fclose($handle);
+	$user = [];
+
+	if ($result) {
+		// success! 
+		$user = mysqli_fetch_array($result, MYSQLI_ASSOC);
+	} else {
+		echo "couldnt do it";
+		exit();
+	}
+
+	if ($user['userType'] == "learner") {
+		// can't view this user, display an error
+		echo "Sorry, this user does not have a profile.";
 	} else {
 
-	}
-
-	$currentUser;
-
-	// find the user we actually want to display the data for
-	foreach ($users as $user) {
-		$userdata = explode(" | ", $user);
-
-		// if the name of this user matches the provided username
-		if ($userdata[0] == $username) {
-			// Now we have this user's data in the currentUser array
-			$currentUser = $userdata;
+		$postsQuery = "SELECT id, author, title, content FROM posts WHERE author='" . $user['name'] . "'";
+		$postsResult = mysqli_query($connection, $postsQuery);
+		if ($postsResult) {
+			$posts = mysqli_fetch_all($postsResult, MYSQLI_ASSOC);
 		}
-	}
 
-	// Display the user's profile
-	?>
-	<article id="userProfile">
+		// now to figure out how to get the topics
+		$topicsQuery = "SELECT DISTINCT post_topics.topicName FROM posts, post_topics WHERE post_topics.postId = posts.id and posts.author = '" . $user['name'] . "'";
+		$topicsResult = mysqli_query($connection, $topicsQuery);
+		if($topicsResult) {
+			$topics = mysqli_fetch_all($topicsResult, MYSQLI_ASSOC);
+		} 
 
-		<div id="userBio">
-			<img src="http://placehold.it/120x120" alt="<?php echo $currentUser[0]; ?>'s profile image"/>
-			<div id="userStats">
-				<h1><?php echo $currentUser[0]; ?></h1>
-				<h2>Writes about: <?php echo $currentUser[6]; ?></h2>
-				<p><?php echo $currentUser[5]; ?></p>
+		// Display the user's profile
+		?>
+		<article id="userProfile">
+
+			<div id="userBio">
+				<img src="http://placehold.it/120x120" alt="<?php echo $user['name']; ?>'s profile image"/>
+				<div id="userStats">
+					<h1><?php echo ucwords($user['name']); ?></h1>
+					<h2>Writes about: 
+						<?php
+						foreach($topics as $key=>$value) {
+							echo '<a href="controller.php?action=displaylessons&topic=' . urlencode($value['topicName']) . '">';
+							echo ucwords($value['topicName']);
+							echo "</a>";
+							if ($key < count($topics) - 1) {
+								echo " | ";
+							}
+						} 
+						?></h2>
+					<p><?php echo $user['description']; ?></p>
+					<?php if($_SESSION['user_type'] == "learner") { 
+						// if the current user is already following this user, change the link to unfollow 
+						$testQuery = "SELECT learnerName, contributorName FROM following_users WHERE learnerName = '" . $_SESSION['valid_user'] . "' and contributorName = '" . $user['name'] . "'";
+						$testResult = mysqli_query($connection, $testQuery);
+						$testRes = mysqli_fetch_array($testResult, MYSQLI_ASSOC);
+						if ($testRes['learnerName'] == $_SESSION['valid_user']) {
+							?>
+							<a href="processUnfollow.php?unfollow=<?php echo $user['name']; ?>">Unfollow <?php echo ucwords($user['name']); ?> </a> 
+							<?php
+						} else {
+						?>
+						<a href="processFollow.php?follow=<?php echo $user['name']; ?>">Follow <?php echo ucwords($user['name']); ?> </a>
+						<?php } ?> 
+					<?php } ?> 
+				</div>
 			</div>
-		</div>
 
-		<div class="usersLessons">
-			<h3>Series</h3>
-			<p><?php echo $currentUser[0]; ?> has not written any series yet. <!--Suggest a series. --></p>
-		</div>
-
-		<div class="usersLessons">
-			<h3>Lessons</h3>
-			<p><?php echo $currentUser[0]; ?> has not written any lessons yet. <!-- Suggest a lesson. --></p>
-		</div>
-	
-	</article>
-	<?php
-
+			<div class="usersLessons">
+				<h3>Lessons</h3>
+				<?php 
+				if (count($posts) == 0) { ?>
+				<p><?php echo ucwords($user['name']); ?> has not written any lessons yet. <!-- Suggest a lesson. --></p>
+				<?php } else {
+					printLesson($connection, $posts); 
+				}
+				?>
+			</div>
+		</article>
+		<?php
+	}
 
 }
 

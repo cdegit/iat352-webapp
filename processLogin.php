@@ -37,13 +37,9 @@ if (!isset($_SESSION['valid_user'])) {
 			$_SESSION['valid_user'] = $name;
 			$_SESSION['user_type'] = $user['userType'];
 
-			// Redirect back to homepage if contributor
-			// redirect learner users straight to their dashboard
-			if ($_SESSION['user_type'] == 'learner') {
-				$url = 'controller.php?action=dashboard';
-			} else {
-				$url = 'controller.php';
-			}
+			// To get back to http rather than https, we stored the original url we were at when we logged in
+			// This was needed to ensure that if a port was specified, such as 8080, that we would return to that port.
+			$url = "http://" . $_POST['server'];
 			header('Location: ' . $url);
 
 		} else {

@@ -8,7 +8,7 @@ function drawHeader() {
 		<title>{ Tutor }</title>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js?ver=1.9.1"></script><!-- JQuery -->
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js?ver=1.9.1"></script><!-- JQuery -->
 		<script type="text/javascript" src="script.js"></script>
 	</head>
 	<body>
@@ -34,7 +34,7 @@ function drawHeader() {
 					<h2>Login</h2>
 					<a href="#" id="closeLoginButton">X</a>
 					<div id="loginForm">
-						<form name="login" action="<?php echo "processLogin.php"?>" method="POST"><!-- Make https later -->
+						<form name="login" action="<?php echo "https://" . $_SERVER['SERVER_NAME'] . "/cdegit/processLogin.php"?>" method="POST"><!-- Make https later -->
 							<table>
 								<tr>
 									<td><label for="name">Username:</label></td>
@@ -46,6 +46,7 @@ function drawHeader() {
 								</tr>
 						  	</table>
 							<br />
+							<input type="hidden" name="server" value="<?php echo $_SERVER['HTTP_HOST']  . $_SERVER['REQUEST_URI']; ?>" />
 						  	<input type="submit" name="submit" id="loginButton" value="Login" />
 						</form>
 					</div>
@@ -61,7 +62,7 @@ function drawHeader() {
 						<div id="registrationLinks"><a href="" id="registerContributor" class="buttonLinks">Contributor</a> <a href="" id="registerLearner" class="buttonLinks">Learner</a></div>
 					</div>
 					<div id="registrationForm">
-						<form name="registration" action="processRegistration.php" method="POST">
+						<form name="registration" action="<?php echo "https://" . $_SERVER['SERVER_NAME'] . "/cdegit/processRegistration.php"; ?>" method="POST">
 							<table>
 								<tr>
 									<td><label for="name">Username:</label></td>
@@ -81,6 +82,7 @@ function drawHeader() {
 								</tr>
 						  	</table>
 						  	<input type="hidden" name="userType" id="userTypeInput" value="contributor" />
+						  	<input type="hidden" name="server" value="<?php echo $_SERVER['HTTP_HOST']  . $_SERVER['REQUEST_URI']; ?>" />
 							<br />
 							<a href="" id="registrationBack" class="buttonLinks">Back</a>
 						  	<input type="submit" name="submit" id="registerButton" value="Register" />

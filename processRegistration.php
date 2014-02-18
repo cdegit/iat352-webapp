@@ -68,8 +68,11 @@ if (isset($_POST["submit"])) {
 	$_SESSION['valid_user'] = $userdata["name"];
 	$_SESSION['user_type'] = $userdata["userType"];
 
-	$url = 'controller.php';
+	// To get back to http rather than https, we stored the original url we were at when we logged in
+	// This was needed to ensure that if a port was specified, such as 8080, that we would return to that port.
+	$url = "http://" . $_POST['server'];
 	header('Location: ' . $url);
+	
 } else { // if there was nothing in $_POST
 	$data = array('action' => 'error', 'ermessage' => "Sorry, you cannot access this file.");
 	$url = 'controller.php' . "?" . http_build_query($data);

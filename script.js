@@ -75,4 +75,7 @@ $(document).ready(function() {
 			password.setCustomValidity('');
 		}
 	});
+
+	// display tooltips for form elements, if there
+	$( document ).tooltip();
 });

@@ -1,13 +1,15 @@
 <?php
 
+require_once("displayTwitter.php");
+
 // Displays lessons based on a particular tag (or no tag)
 // Also displays the sorting menu
 function displayLessons($connection, $tag) {
 
 	if ($tag == "all") { // if no topic has been selected, just show everything
-		$query = "SELECT id, author, title, content FROM posts";
+		$query = "SELECT id, author, title, content FROM posts ORDER BY timestamp DESC";
 	} else { // if a topic has been selected, display only posts from that topic
-		$query = "SELECT posts.id, posts.author, posts.title, posts.content, post_topics.postId, post_topics.topicName FROM posts, post_topics WHERE post_topics.postId = posts.id and post_topics.topicName = '" . rawurldecode($tag) . "'";
+		$query = "SELECT posts.id, posts.author, posts.title, posts.content, post_topics.postId, post_topics.topicName FROM posts, post_topics WHERE post_topics.postId = posts.id and post_topics.topicName = '" . rawurldecode($tag) . "' ORDER BY timestamp DESC";
 	}
 	$result = mysqli_query($connection, $query);
 
@@ -65,10 +67,34 @@ function displayLessons($connection, $tag) {
 				}
 				?>				
 			</ul>
+
+			<?php 
+			// display the tweets only if the viewing user has tweets enabled, or if the user is not logged in
+			if (!isset($_SESSION['twitter']) || $_SESSION['twitter'] == 1 ) { ?>
+				<?php
+				if ($tag == "all") { // if no topic has been selected, just show everything
+					$query = "SELECT tweets.id, tweets.text, tweets.authorTwitter, users.name FROM tweets, users WHERE users.twitter = tweets.authorTwitter AND tutorTweet = 1 ORDER BY id DESC LIMIT 10";
+				} else { // if a topic has been selected, display only posts from that topic
+					$query = "SELECT tweets.id, tweets.text, tweets.authorTwitter, users.name FROM tweets, tweet_topics, users WHERE users.twitter = tweets.authorTwitter AND tweet_topics.tweetId = tweets.id AND tweet_topics.topicName = '" . rawurldecode($tag) . "' AND tweets.tutorTweet = 1 ORDER BY tweets.id DESC LIMIT 10";
+				}
+	
+				$result = mysqli_query($connection, $query);
+				$tweets = mysqli_fetch_all($result, MYSQLI_ASSOC);
+				
+				// display the tweets
+				if (count($tweets) > 0) {
+					echo "<div id='publicTweets'>";
+					echo "<h3>Recent Tweets</h3>";
+					drawTweets($connection, $tweets);
+					echo "</div>";
+				}
+				?>
+				</div>
+			<?php } ?>
 		</div>
 		<?php if($tag != "all") { ?>
 			<h2 id="lessonsTagTitle">Displaying Lessons from: <?php echo ucwords($tag); ?></h2>
-			<?php if($_SESSION['user_type'] == 'learner') { 
+			<?php if(isset($_SESSION['user_type']) &&$_SESSION['user_type'] == 'learner') { 
 				// if the current user is a learner, give them the option to follow this topic
 				$testQuery = "SELECT learnerName, topicName FROM following_topics WHERE learnerName = '" . $_SESSION['valid_user'] . "' AND topicName = '" . rawurldecode($tag) . "'";
 				$testResult = mysqli_query($connection, $testQuery);
@@ -127,7 +153,7 @@ function displayLesson($connection, $id) {
 		<div id="lessonInfo">
 			<h1><?php echo $post['title']; ?></h1>
 			<h2>By <a href="controller.php?action=user&name=<?php echo $post['author']; ?>"><?php echo ucwords($post['author']); ?></a></h2>
-			<?php if ($post['author'] == $_SESSION['valid_user']) {
+			<?php if (isset($_SESSION['valid_user']) && $post['author'] == $_SESSION['valid_user']) {
 				echo "<a href='controller.php?action=editpost&id=" . $post['id'] . "' id='editLink'>";
 				echo "Edit Post";
 				echo "</a>";

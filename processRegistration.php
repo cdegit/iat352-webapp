@@ -68,6 +68,10 @@ if (isset($_POST["submit"])) {
 	$_SESSION['valid_user'] = $userdata["name"];
 	$_SESSION['user_type'] = $userdata["userType"];
 
+	// by default, twitter and flickr are enabled
+	$_SESSION['twitter'] = 1;
+	$_SESSION['flickr'] = 1;
+
 	// To get back to http rather than https, we stored the original url we were at when we logged in
 	// This was needed to ensure that if a port was specified, such as 8080, that we would return to that port.
 	$url = "http://" . $_POST['server'];

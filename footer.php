@@ -28,6 +28,7 @@ function drawFooter() {
 					<h3><a href="controller.php?action=editprofile">Edit Profile</a></h3>
 					<h3><a href="controller.php?action=newpost">Create New Lesson</a></h3>
 				<?php } ?>
+				<h3><a href="controller.php?action=usersettings">Settings</a></h3>
 				<h3><a href="processLogout.php">Logout</a></h3>
 			</div>
 		</div>

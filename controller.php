@@ -11,6 +11,7 @@ require_once("editProfile.php");
 require_once("post.php");
 require_once("error.php");
 require_once("dashboard.php");
+require_once("userSettings.php");
 
 session_start();
 
@@ -88,6 +89,12 @@ if (isset($_GET['action'])) {
 				displayDashboard($connection);
 			}
 			break;
+
+		case 'usersettings':
+			if (isset($_SESSION['valid_user'])) {
+				userSettings($connection);
+			}
+			break;			
 
 	}
 } else {

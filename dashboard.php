@@ -1,20 +1,25 @@
 <?php
 
 require_once("lesson.php");
+require_once("displayTwitter.php");
 
 // displays the dashboard for the currenly logged in user
 // gets posts from users and topics they follow
 function displayDashboard($connection) {
 
 	// get the posts from users they follow
-	$query = "SELECT author, id, content, title FROM posts WHERE author IN (SELECT contributorName FROM following_users WHERE learnerName = '" . $_SESSION['valid_user'] . "')";
+	$query = "SELECT author, id, content, title FROM posts WHERE author IN (SELECT contributorName FROM following_users WHERE learnerName = '" . $_SESSION['valid_user'] . "') ORDER BY timestamp DESC";
 	$result = mysqli_query($connection, $query);
 	$posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 	// get posts from topics they follow
-	$topicQuery = "SELECT posts.author, posts.id, posts.content, posts.title, post_topics.topicName FROM posts, post_topics WHERE post_topics.postId = posts.id AND post_topics.topicName IN (SELECT topicName FROM following_topics WHERE learnerName = '" . $_SESSION['valid_user'] . "')";
+	$topicQuery = "SELECT posts.author, posts.id, posts.content, posts.title FROM posts, post_topics WHERE post_topics.postId = posts.id AND post_topics.topicName IN (SELECT topicName FROM following_topics WHERE learnerName = '" . $_SESSION['valid_user'] . "') ORDER BY timestamp DESC";
 	$topicResult = mysqli_query($connection, $topicQuery);
 	$topics = mysqli_fetch_all($topicResult, MYSQLI_ASSOC);	
+
+	$all = array_merge($posts, $topics);
+	// TODO: write own function to merge while maintaining timestamp
+	// think mergesort
 
 	?>
 	<article id='dashboard'>
@@ -55,9 +60,31 @@ function displayDashboard($connection) {
 				?>
 			</p>
 		</div>
+		<div id="lessonSet">
+		<?php printLesson($connection, $all); ?>
+		</div>
 		
-		<?php printLesson($connection, $posts); ?>
-		<?php printLesson($connection, $topics); ?>
+		<?php 
+		// currently, just displaying tweets from followed users, not followed topics
+		if($_SESSION['twitter'] == 1) { ?>
+		<div id="tweetSet">
+			<?php
+			$query = "SELECT tweets.id, tweets.text, tweets.authorTwitter, users.name FROM tweets, users WHERE users.twitter = tweets.authorTwitter AND tutorTweet = 1 AND users.name IN (SELECT contributorName FROM following_users WHERE learnerName = '" . $_SESSION['valid_user'] . "') ORDER BY id DESC LIMIT 10";
+			$result = mysqli_query($connection, $query);
+
+			// if users that this user follows have tweets, display them
+			if ($result) {
+				$tweets = mysqli_fetch_all($result, MYSQLI_ASSOC);
+				if (count($tweets) > 0) {
+					echo "<div id='dashboardTweets'>";
+					echo "<h3>Recent Tweets</h3>";
+					drawTweets($connection, $tweets);
+					echo "</div>";
+				}
+			}
+			?>
+		</div>
+		<?php } ?>
 	</article>
 	<?php
 

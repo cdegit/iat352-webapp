@@ -36,6 +36,16 @@ if (!isset($_SESSION['valid_user'])) {
 			// do whatever matching is necessary - against the DB here
 			$_SESSION['valid_user'] = $name;
 			$_SESSION['user_type'] = $user['userType'];
+			
+			// get the user's settings for twitter and flickr, so we know how to display everything for them
+			$query = "SELECT twitterActivated, flickrActivated FROM user_settings WHERE username = '" . $_SESSION['valid_user'] . "'";
+			$result = mysqli_query($connection, $query);
+
+			if ($result) {
+				$settings = mysqli_fetch_array($result, MYSQLI_ASSOC);
+				$_SESSION['twitter'] = $settings['twitterActivated'];
+				$_SESSION['flickr'] = $settings['flickrActivated'];
+			}
 
 			// To get back to http rather than https, we stored the original url we were at when we logged in
 			// This was needed to ensure that if a port was specified, such as 8080, that we would return to that port.

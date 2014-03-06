@@ -1,10 +1,12 @@
 <?php
 
 require_once("lesson.php");
+require_once("displayFlickr.php");
+require_once("displayTwitter.php");
 
 // read in data for this user and display it
 function displayProfile($connection, $username) {
-	$query = "SELECT name, description, twitter, facebook, flickr, userType FROM users WHERE name = '" . $username . "'";
+	$query = "SELECT name, description, twitter, facebook, flickr, userType, displayTwitter, displayFlickr FROM users, user_settings WHERE users.name = '" . $username . "' AND users.name = user_settings.username";
 
 	$result = mysqli_query($connection, $query);
 
@@ -59,7 +61,7 @@ function displayProfile($connection, $username) {
 						} 
 						?></h2>
 					<p><?php echo $user['description']; ?></p>
-					<?php if($_SESSION['user_type'] == "learner") { 
+					<?php if(isset($_SESSION['user_type']) && $_SESSION['user_type'] == "learner") { 
 						// if the current user is already following this user, change the link to unfollow 
 						$testQuery = "SELECT learnerName, contributorName FROM following_users WHERE learnerName = '" . $_SESSION['valid_user'] . "' and contributorName = '" . $user['name'] . "'";
 						$testResult = mysqli_query($connection, $testQuery);
@@ -73,6 +75,30 @@ function displayProfile($connection, $username) {
 						<?php }  
 					} ?> 
 				</div>
+			</div>
+
+			<div id="socialMedia">
+				<?php 
+				// if this user has their twitter set up and enabled, and the viewing user has tweets activated, display tweets
+				if($user['twitter'] != "" && $user['displayTwitter'] == 1 && (!isset($_SESSION['twitter']) || $_SESSION['twitter'] == 1) ) { ?>
+				<div id="userTweets">
+					<h3>Recent Tweets</h3>
+					<a href="https://twitter.com/<?php echo $user['twitter']; ?>"><img src="twitter_logo_small.png" id="twitterLogo"/></a>
+					<?php
+					displayTweets($connection, $user['twitter']);
+					?>
+				</div>
+				<?php } ?>
+
+				<?php 
+				// if this user has their flickr set up and enabled, and the viewing user has photos activated, display flickr
+				if($user['flickr'] != "" && $user['displayFlickr'] == 1 && (!isset($_SESSION['flickr']) || $_SESSION['flickr'] == 1 )) { ?>
+				<div id="userFlickrPhotos">
+					<?php
+					displayFlickrPhotos($connection, $user['flickr']);
+					?>
+				</div>
+				<?php } ?>
 			</div>
 
 			<div class="usersLessons">

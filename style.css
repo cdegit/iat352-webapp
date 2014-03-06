@@ -12,6 +12,10 @@ body {
 	height: 100%;
 }
 
+h1 {
+	font-weight: 300;
+}
+
 a {
 	color: #20e2c8;
 	text-decoration: none;
@@ -280,6 +284,11 @@ article article {
 	width: 450px;
 }
 
+#userBio {
+	width: 600px;
+	margin-right: 0px;
+}
+
 #userBio h1 {
 	font-weight: 300;
 	font-size: 1.7em;
@@ -299,6 +308,7 @@ article article {
 
 .usersLessons {
 	min-height: 200px;
+	max-width: 950px;
 }
 
 .usersLessons h3 {
@@ -317,7 +327,7 @@ article article {
 .lesson {
 	background: #444;
 	width: 275px;
-	height: 390px;
+	height: 420px;
 	border-radius: 2px;
 	position: relative;
 	float: left;
@@ -421,7 +431,7 @@ article article {
 #lessonSort .topicCategory {
 	background: #06a18d;
 	padding: 4px;
-	width: 200px;
+	width: 275px;
 	font-weight: 300;
 	font-size: 1.1em;
 	border-bottom: 1px solid #20e2c8;
@@ -625,4 +635,126 @@ article article {
 
 .paginationNavigation {
 	clear: both;
+}
+
+.tweet {
+	background: #444;
+	border-radius: 2px;
+	width: 275px;
+	margin-bottom: 30px;
+	position: relative;
+}
+
+.tweet p {
+	padding: 2%;
+	font-size: 0.9em;
+	margin: 0px;
+}
+
+#socialMedia {
+	width: 450px;
+	position: absolute;
+	right: -50px;
+	top: 0px;
+}
+
+#userTweets {
+	position: relative;
+	width: 275px;
+}
+
+#userTweets h3 {
+	font-weight: 300;
+	font-size: 1.4em;
+	border-bottom: 1px solid #038b79;
+	width: 70%;
+}
+
+.tweetTopics {
+	width: 94%;
+	background-color: #038b79;
+	bottom: 0px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+	font-size: 0.8em;
+	padding: 3%;
+}
+
+.tweetTopics a {
+	color: #fff;
+}
+
+.tweetTopics a:hover {
+	color: #20e2c8;
+}
+
+#twitterLogo {
+	position: absolute;
+	top: 0px;
+	right: 10px;
+}
+
+#flickr {
+	width: 250px;
+	background-color: #444;
+	text-align: center;
+	border-radius: 2px;
+}
+
+#photos {
+	padding: 2%;
+}
+
+.flickrPhoto {
+	display: inline;
+}
+
+#flickrLink {
+	text-align: left;
+	color: #fff;
+	background-color: #038b79;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+	padding: 3%;
+}
+
+#flickrLink a {
+	color: #fff;
+}
+
+#flickrLink a:hover {
+	color: #20e2c8;
+}
+
+#userSettings h1 {
+	font-weight: 300;
+}
+
+#publicTweets, #dashboardTweets {
+	margin-top: 50px;
+}
+
+#publicTweets h3, #dashboardTweets h3 {
+	font-weight: 300;
+	font-size: 1.4em;
+	border-bottom: 1px solid #038b79;
+	width: 70%;
+}
+
+#publicTweets h4, #dashboardTweets h4 {
+	font-weight: 300;
+	margin: 0px;
+	padding: 5px;
+	color: #20e2c8;
+}
+
+#dashboard #lessonSet {
+	max-width: 950px;
+}
+
+#dashboard #tweetSet {
+	clear: both;
+	position: absolute;
+	right: 9px;
+	top: 100px;
 }

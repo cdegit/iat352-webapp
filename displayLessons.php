@@ -73,9 +73,9 @@ function displayLessons($connection, $tag) {
 			if (!isset($_SESSION['twitter']) || $_SESSION['twitter'] == 1 ) { ?>
 				<?php
 				if ($tag == "all") { // if no topic has been selected, just show everything
-					$query = "SELECT tweets.id, tweets.text, tweets.authorTwitter, users.name FROM tweets, users WHERE users.twitter = tweets.authorTwitter AND tutorTweet = 1 ORDER BY id DESC LIMIT 10";
+					$query = "SELECT tweets.id, tweets.text, tweets.authorTwitter, users.name FROM tweets, users, user_settings WHERE users.twitter = tweets.authorTwitter AND tutorTweet = 1 AND user_settings.username = users.name AND user_settings.displayTwitter = 1 ORDER BY id DESC LIMIT 10";
 				} else { // if a topic has been selected, display only posts from that topic
-					$query = "SELECT tweets.id, tweets.text, tweets.authorTwitter, users.name FROM tweets, tweet_topics, users WHERE users.twitter = tweets.authorTwitter AND tweet_topics.tweetId = tweets.id AND tweet_topics.topicName = '" . rawurldecode($tag) . "' AND tweets.tutorTweet = 1 ORDER BY tweets.id DESC LIMIT 10";
+					$query = "SELECT tweets.id, tweets.text, tweets.authorTwitter, users.name FROM tweets, tweet_topics, users, user_settings WHERE users.twitter = tweets.authorTwitter AND tweet_topics.tweetId = tweets.id AND tweet_topics.topicName = '" . rawurldecode($tag) . "' AND tweets.tutorTweet = 1 AND user_settings.username = users.name AND user_settings.displayTwitter = 1 ORDER BY tweets.id DESC LIMIT 10";
 				}
 	
 				$result = mysqli_query($connection, $query);

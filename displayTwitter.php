@@ -6,7 +6,7 @@ require_once('codebird-php/src/codebird.php');
 // fetch and display the 5 most recent tweets for this user
 function displayTweets($connection, $username) {
 	// first, check if this user has any cached tweets
-	$query = "SELECT timestamp FROM tweets WHERE authorTwitter = '" . $username . "' ORDER BY id DESC LIMIT 5";
+	$query = "SELECT timestamp FROM tweets WHERE authorTwitter = '" . $username . "' ORDER BY id DESC LIMIT 1";
 	$result = mysqli_query($connection, $query);
 	$tc = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -14,9 +14,9 @@ function displayTweets($connection, $username) {
 	if (count($tc) > 0) {
 		// check the timestamp
 		$currentTime = time();
-		$hour = 3600;
+		$minute = 60;
 		foreach($tc as $tweet) {
-			if ($currentTime - strtotime($tweet['timestamp']) > $hour) { // if this tweet is older than a certain threshold
+			if ($currentTime - strtotime($tweet['timestamp']) > $minute) { // if this tweet is older than a certain threshold
 				// get all new tweets if this is true for any
 				fetchTweets($connection, $username);
 				break;
@@ -102,7 +102,7 @@ function cacheTweets($connection, $username, $data) {
 			$tweetCount = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
 			// escape special characters in the tweet (URLs are a common cause)
-			$text = addslashes($item['text']);
+			$text = addslashes(utf8_decode($item['text']));
 
 			if ($tweetCount['COUNT(id)'] == 0) {
 				// add it to the database
@@ -123,7 +123,7 @@ function cacheTweets($connection, $username, $data) {
 
 				// for each topic, check if this topic is in the string
 				foreach($topics as $topic) {
-					$t = "#" . $topic['name'];
+					$t = " #" . $topic['name'] . " ";
 					if (strpos($item['text'],$t) !== false) {
 					    // add to the topics
 					    $query = "INSERT INTO tweet_topics (tweetId, topicName) VALUES ('" . $item['id_str'] . "', '" . $topic['name'] . "')";
@@ -133,6 +133,7 @@ function cacheTweets($connection, $username, $data) {
 			}
 		}
 	}
+	dropOldTweets($connection, $username);
 }
 
 // draw the tweets with their username and twitter username displayed and linked
@@ -165,6 +166,17 @@ function drawTweets($connection, $tweets) {
 		</div>
 		<?php
 	}	
+}
+
+function dropOldTweets($connection, $username) {
+	$query = "SELECT COUNT(id) FROM tweets WHERE authorTwitter = '" . $username . "'";
+	$result = mysqli_query($connection, $query);
+	$photoCount = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+	if ($photoCount['COUNT(id)'] > 5) { // if we have more than can currently be displayed anyways, delete old ones
+		$query = "DELETE FROM tweets WHERE authorTwitter = '" . $username . "' AND id NOT IN (SELECT id FROM (SELECT id FROM tweets WHERE authorTwitter = '" . $username . "' ORDER BY id DESC LIMIT 5)sub )";
+		$result = mysqli_query($connection, $query);
+	}
 }
 
 ?>

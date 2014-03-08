@@ -84,16 +84,21 @@ function fetchFlickrPhotos($connection, $username) {
 	$api_key = "4bd28bc802ab6db50eaa5bb426882f0f";
 
 	$user_id = fetchUid($username);
-	$link_option = 2;
 
-	$url ="http://flickr.com/services/rest/?method=flickr.people.getPublicPhotos"."&user_id=".$user_id."&api_key=".$api_key . "&per_page=10&page=1";
-	@$xml = simplexml_load_file($url);
-	
-	if (!$xml || !isset($xml)) { // if the connection failed and we couldn't load any images
-		echo "Could not contact flickr";
-		return;
-	} else {	
-		cachePhotos($connection, $username, $xml);
+	if ($user_id != false) {
+		$link_option = 2;
+
+		$url ="http://flickr.com/services/rest/?method=flickr.people.getPublicPhotos"."&user_id=".$user_id."&api_key=".$api_key . "&per_page=10&page=1";
+		@$xml = simplexml_load_file($url);
+		
+		if (!$xml || !isset($xml)) { // if the connection failed and we couldn't load any images
+			echo "Could not contact flickr";
+			return false;
+		} else {	
+			cachePhotos($connection, $username, $xml);
+		}
+	} else {
+		return false;
 	}
 }
 
@@ -127,6 +132,19 @@ function cachePhotos($connection, $username, $xml) {
 		$photoNumber++;
 	}
 
+	dropOldPhotos($connection, $username);
+
+}
+
+function dropOldPhotos($connection, $username) {
+	$query = "SELECT COUNT(id) FROM flickr_photos WHERE authorFlickr = '" . $username . "'";
+	$result = mysqli_query($connection, $query);
+	$photoCount = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+	if ($photoCount['COUNT(id)'] > 9) { // if we have more than can currently be displayed anyways, delete old ones
+		$query = "DELETE FROM flickr_photos WHERE authorFlickr = '" . $username . "' AND id NOT IN (SELECT id FROM (SELECT id FROM flickr_photos WHERE authorFlickr = '" . $username . "' ORDER BY id DESC LIMIT 9)sub )";
+		$result = mysqli_query($connection, $query);
+	}
 }
 
 ?>

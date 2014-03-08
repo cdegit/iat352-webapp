@@ -61,6 +61,10 @@ if (isset($_POST["submit"])) {
 		exit();
 	}
 
+	// Also, we need to add a field to settings for them
+	$query = "INSERT INTO user_settings (username) VALUES ('" . $userdata["name"] . "')";
+	$result = mysqli_query($connection, $query);
+
 	mysqli_close($connection);
 
 	// should also automatically log in the user

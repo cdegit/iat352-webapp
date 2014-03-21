@@ -78,4 +78,12 @@ $(document).ready(function() {
 
 	// display tooltips for form elements, if there
 	$( document ).tooltip();
+
+	$(".dropdownTopics li a").click(function(event) {
+		event.preventDefault();
+		var params = new Array();
+		params[0] = $(this).html();
+		ajaxReq(1, params, "lessonsSet");
+	});
+
 });

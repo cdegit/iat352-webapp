@@ -92,9 +92,10 @@ function displayLessons($connection, $tag) {
 				</div>
 			<?php } ?>
 		</div>
+		
+		<h2 id="lessonsTagTitle">Displaying Lessons from: <?php echo ucwords($tag); ?></h2>
 		<?php if($tag != "all") { ?>
-			<h2 id="lessonsTagTitle">Displaying Lessons from: <?php echo ucwords($tag); ?></h2>
-			<?php if(isset($_SESSION['user_type']) &&$_SESSION['user_type'] == 'learner') { 
+			<?php if(isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'learner') { 
 				// if the current user is a learner, give them the option to follow this topic
 				$testQuery = "SELECT learnerName, topicName FROM following_topics WHERE learnerName = '" . $_SESSION['valid_user'] . "' AND topicName = '" . rawurldecode($tag) . "'";
 				$testResult = mysqli_query($connection, $testQuery);

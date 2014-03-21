@@ -11,6 +11,7 @@ function drawHeader() {
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js?ver=1.9.1"></script><!-- JQuery -->
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script><!-- JQuery UI -->
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+		<script type="text/javascript" src="ajaxController.js"></script>
 		<script type="text/javascript" src="script.js"></script>
 	</head>
 	<body>

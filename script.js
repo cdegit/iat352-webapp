@@ -63,6 +63,16 @@ $(document).ready(function() {
 		$(this).children("ul").slideToggle();
 	});
 
+
+	// animate expansion and collapsing of the search bar
+	$("#search input").focus(function() {
+		$(this).animate({width: "150px"}, 500);
+	});
+
+	$("#search input").focusout(function() {
+		$(this).animate({width: "20px"}, 500);
+	})
+
 	// check to make sure that the two passwords match before allowing the form to be processed
 	$("#registerButton").click(function(event) {
 		var pass1 = document.forms["registration"]["pass"].value;

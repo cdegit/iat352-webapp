@@ -28,7 +28,12 @@ function drawHeader() {
 				</nav>
 
 				<!-- search bar here -->
-				<div id="search"></div>
+				<div id="search">
+					
+					<form name="search">
+						<input type="text" name="search" value=""/>
+					</form>
+				</div>
 				
 				<!-- login/register link -->
 				<?php if(!isset($_SESSION['valid_user'])) { ?>

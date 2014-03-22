@@ -758,3 +758,19 @@ article article {
 	right: 9px;
 	top: 100px;
 }
+
+#search {
+	display: inline;
+	position: relative;
+}
+
+#search input {
+	width: 20px;
+	border: 1px solid #038b79;
+	border-radius: 5px;
+	padding: 4px;
+	background-color: #fff;
+	background-image: url("search.png");
+	background-repeat: no-repeat;
+	background-position: right center;
+}

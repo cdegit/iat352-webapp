@@ -13,7 +13,7 @@ function ajaxReq(type, params, container) {
 	switch(type) {
 
 		case 1:
-			xmlhttp.open("GET", "ajaxTest.php?topic=" + encodeURIComponent(params[0]), true); // true for async
+			xmlhttp.open("GET", "ajaxPosts.php?topic=" + encodeURIComponent(params[0]), true); // true for async
 
 			xmlhttp.onreadystatechange=function() {
 				if (xmlhttp.readyState==4 && xmlhttp.status==200) {

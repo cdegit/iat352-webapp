@@ -104,6 +104,33 @@ function cacheTweets($connection, $username, $data) {
 			// escape special characters in the tweet (URLs are a common cause)
 			$text = addslashes(utf8_decode($item['text']));
 
+			// check if tweet contains a url
+			$ent = $item['entities'];
+			if ($ent['urls']) { 
+				// add the text occuring before any url
+				$newtext = substr($text, 0, $ent['urls'][0]['indices'][0]);
+
+				// for each url in the tweet, add the link to the url
+				foreach($ent['urls'] as $key => $value) {
+					$newtext .= "<a href='" . $value['expanded_url'] . "'>";
+					$newtext .= $value['url'];
+					$newtext .= "</a>";
+
+					// add text up to next link
+					// if not last
+					if ($key != count($ent['urls']) - 1) {
+						$key2 = $key + 1;
+						$newLinkLoc = $ent['urls'][$key2]['indices'][0];
+						$newLinkDist = $ent['urls'][$key2]['indices'][0] - $ent['urls'][$key]['indices'][1];
+						$newtext .= substr($text, $ent['urls'][$key]['indices'][1], $newLinkDist);
+					}
+				}
+				// add the text after all urls
+				$newtext .= substr($text, $ent['urls'][count( $ent['urls']) - 1]['indices'][1]);
+
+				$text = addslashes($newtext);
+			}
+
 			if ($tweetCount['COUNT(id)'] == 0) {
 				// add it to the database
 				// but first, check if it is marked as a tutortweet 

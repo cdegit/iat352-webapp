@@ -62,6 +62,27 @@ foreach ($posts as $post) {
 	}
 }
 
+$follow = $doc->createAttribute("following");
+if($tag != "all") { 
+	if(isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'learner') { 
+		$testQuery = "SELECT learnerName, topicName FROM following_topics WHERE learnerName = '" . $_SESSION['valid_user'] . "' AND topicName = '" . rawurldecode($tag) . "'";
+		$testResult = mysqli_query($connection, $testQuery);
+		if($testResult) {
+			$testRes = mysqli_fetch_array($testResult, MYSQLI_ASSOC);
+			if ($testRes['learnerName'] == $_SESSION['valid_user']) { // if this relation already exists
+				$follow->value = "1";
+			} else {
+				$follow->value = "0";
+			}
+		}
+	}
+} else {
+	$follow->value = "-1";
+}
+
+$domposts->appendChild($follow);
+
+
 echo $doc->saveXML();
 
 ?>

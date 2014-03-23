@@ -13,7 +13,7 @@ function ajaxReq(type, params, container) {
 	switch(type) {
 
 		case 1:
-			xmlhttp.open("GET", "ajaxTest.php?topic=" + params[0], true); // true for async
+			xmlhttp.open("GET", "ajaxTest.php?topic=" + encodeURIComponent(params[0]), true); // true for async
 
 			xmlhttp.onreadystatechange=function() {
 				if (xmlhttp.readyState==4 && xmlhttp.status==200) {
@@ -127,11 +127,32 @@ function updatePosts(container, xmlhttp, params) {
 			document.getElementById(container).appendChild(post);
 		}
 
+		document.getElementById("lessonsTagTitle").innerHTML = "Displaying Lessons from: " + capitaliseFirstLetter(params[0]);
+
+		var x = xmlDoc.getElementsByTagName("posts");
+		var following = x[0].getAttributeNode("following");
+		
+		document.getElementById("followSetting").innerHTML = "";
+
+		if (following.nodeValue != -1) {
+			var followLink = document.createElement("a");
+			if (following.nodeValue == 0) { // display follow message
+				followLink.href = "processFollowTopic.php?follow=" + encodeURIComponent(params[0].toLowerCase());
+				followLink.innerHTML = "Follow Topic";
+
+			} else if (following.nodeValue == 1) { // display unfollow message
+				followLink.href = "processUnfollowTopic.php?unfollow=" + encodeURIComponent(params[0].toLowerCase());
+				followLink.innerHTML = "Unfollow Topic";
+				
+			}
+			followLink.id = "followTopicLink";
+			document.getElementById("followSetting").appendChild(followLink);
+		}
+
 		// if not all, do this and check if we need to display follow
 		// have another php script for that??
 		// or maybe include that in the XML response??
 
-		document.getElementById("lessonsTagTitle").innerHTML = "Displaying Lessons from: " + capitaliseFirstLetter(params[0]);
 
 		$("#" + container).fadeIn("fast");
 	});

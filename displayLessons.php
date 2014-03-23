@@ -93,7 +93,9 @@ function displayLessons($connection, $tag) {
 			<?php } ?>
 		</div>
 		
+		<div id="topicInfo">
 		<h2 id="lessonsTagTitle">Displaying Lessons from: <?php echo ucwords($tag); ?></h2>
+		<div id="followSetting">
 		<?php if($tag != "all") { ?>
 			<?php if(isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'learner') { 
 				// if the current user is a learner, give them the option to follow this topic
@@ -110,6 +112,8 @@ function displayLessons($connection, $tag) {
 				
 			 }
 		} ?>
+		</div>
+		</div>
 		<div id="lessonsSet">
 		<?php
 		// display the lessons

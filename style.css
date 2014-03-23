@@ -429,6 +429,10 @@ article article {
 	margin-left: 10px;
 }
 
+#followSetting {
+	display: inline;
+}
+
 #lessonSort .topicCategory {
 	background: #06a18d;
 	padding: 4px;

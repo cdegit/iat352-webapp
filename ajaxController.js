@@ -22,6 +22,14 @@ function ajaxReq(type, params, container) {
 			}
 			break;
 
+		case 2:
+			xmlhttp.open("GET", "search.php?query=" + params[0], true);
+			xmlhttp.onreadystatechange=function() {
+				if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+					searchPosts(container, xmlhttp, params);
+				}
+			}
+							
 	}
 
 	xmlhttp.send();
@@ -127,6 +135,60 @@ function updatePosts(container, xmlhttp, params) {
 
 		$("#" + container).fadeIn("fast");
 	});
+}
+
+function searchPosts(container, xmlhttp, params) {
+	if(params[0] == "") {
+		$("#searchResults").hide("fast");
+		return;
+	}
+
+	document.getElementById(container).innerHTML = "";
+
+	var xml = xmlhttp.responseText;
+
+	if (window.DOMParser)
+	{
+		parser=new DOMParser();
+		xmlDoc=parser.parseFromString(xml,"text/xml");
+	}
+	else // Internet Explorer
+	{
+		xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+		xmlDoc.async=false;
+		xmlDoc.loadXML(xml);
+	}
+	
+	var posts = xmlDoc.getElementsByTagName("post");
+	var list = document.createElement("ul");
+
+	for(i = 0; i < posts.length; i++) {
+		var post = document.createElement("li");
+		
+		var title = document.createElement("a");
+		title.className = "searchTitle";
+		title.href = "controller.php?action=lesson&id=" + posts[i].getAttributeNode("id").nodeValue;
+		title.innerHTML = posts[i].childNodes[0].textContent;
+		post.appendChild(title);
+
+		var authorLink = document.createElement("a");
+		authorLink.className = "searchAuthor";
+		authorLink.href = "controller.php?action=user&name=" + posts[i].getAttributeNode("author").nodeValue;
+		authorLink.innerHTML = "By " + capitaliseFirstLetter(posts[i].getAttributeNode("author").nodeValue);
+		post.appendChild(authorLink);
+
+		list.appendChild(post);
+	}
+
+	if (posts.length == 0) {
+		var error = document.createElement("p");
+		error.innerHTML = "No Results";
+		document.getElementById(container).appendChild(error);
+	} else {
+		document.getElementById(container).appendChild(list);
+	}
+
+	$("#searchResults").show("fast");
 }
 
 // From: http://stackoverflow.com/questions/1026069/capitalize-the-first-letter-of-string-in-javascript

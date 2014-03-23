@@ -24,15 +24,19 @@ function drawHeader() {
 					<ul>
 						<li><a href="controller.php?action=displaylessons&topic=all">Lessons</a></li>
 						<li><a href="controller.php?action=displayusers&sort=name">Users</a></li>
+						<li><a href="">About</a></li>
+						<li><a href="">Author</a></li>
 					</ul>
 				</nav>
 
 				<!-- search bar here -->
 				<div id="search">
-					
+
 					<form name="search">
 						<input type="text" name="search" value=""/>
 					</form>
+
+					<div id="searchResults"></div>
 				</div>
 				
 				<!-- login/register link -->

@@ -96,4 +96,11 @@ $(document).ready(function() {
 		ajaxReq(1, params, "lessonsSet");
 	});
 
+	$("#search input").bind("change paste keyup", function() {
+		// search
+		var params = new Array();
+		params[0] = $(this).val();
+		ajaxReq(2, params, "searchResults");
+	});
+
 });

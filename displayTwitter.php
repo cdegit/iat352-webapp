@@ -131,6 +131,33 @@ function cacheTweets($connection, $username, $data) {
 				$text = addslashes($newtext);
 			}
 
+			// check if tweet contains any media
+			if(isset($ent['media'])) {
+				$newtext = substr($text, 0, $ent['media'][0]['indices'][0]);
+
+				// for each media link in the tweet, add the actual link
+				foreach($ent['media'] as $key => $value) {
+					$newtext .= "<a href='" . $value['expanded_url'] . "'>";
+					$newtext .= $value['url'];
+					$newtext .= "</a>";
+
+					// add text up to next media url
+					// if not last
+					if ($key != count($ent['media']) - 1) {
+						$key2 = $key + 1;
+						$newLinkLoc = $ent['media'][$key2]['indices'][0];
+						$newLinkDist = $ent['media'][$key2]['indices'][0] - $ent['media'][$key]['indices'][1];
+						$newtext .= substr($text, $ent['media'][$key]['indices'][1], $newLinkDist);
+					}
+				}
+				// add the text after all media
+				if ($ent['media'][count( $ent['media']) - 1]['indices'][1] != strlen($text) - 1) {
+					$newtext .= substr($text, $ent['media'][count( $ent['media']) - 1]['indices'][1]);
+				}
+
+				$text = addslashes($newtext);
+			}
+
 			if ($tweetCount['COUNT(id)'] == 0) {
 				// add it to the database
 				// but first, check if it is marked as a tutortweet 

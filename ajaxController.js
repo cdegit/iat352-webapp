@@ -29,6 +29,70 @@ function ajaxReq(type, params, container) {
 					searchPosts(container, xmlhttp, params);
 				}
 			}
+			break;
+
+		case 3: // tweets
+			xmlhttp.open("GET", "ajaxTweets.php?user=" + params[0] + "&time=" + params[1], true);
+			xmlhttp.onreadystatechange=function() {
+				if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+
+					var xml = xmlhttp.responseText;
+
+					if (window.DOMParser)
+					{
+						parser=new DOMParser();
+						xmlDoc=parser.parseFromString(xml,"text/xml");
+					}
+					else // Internet Explorer
+					{
+						xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+						xmlDoc.async=false;
+						xmlDoc.loadXML(xml);
+					}
+					
+					var tweets = xmlDoc.getElementsByTagName("tweet");
+
+					for(i = 0; i < tweets.length; i++) {
+						var tweet = document.createElement("div");
+						tweet.className = "tweet";
+						
+
+						var content = document.createElement("p");
+						content.innerHTML = tweets[i].childNodes[0].textContent;
+						tweet.appendChild(content);
+
+						var tweetTopics = document.createElement("div");
+						tweetTopics.className = "tweetTopics";
+						tweet.appendChild(tweetTopics);
+
+						var t = tweets[i].getElementsByTagName("topic");
+						for(var j = 0; j < t.length; j++) {
+							var topic = document.createElement("a");
+							topic.href = "controller.php?action=displaylessons&topic=" + t[j].textContent;
+							topic.innerHTML = capitaliseFirstLetter(t[j].textContent);
+							tweetTopics.appendChild(topic);
+
+							if (j != t.length - 1 ) {
+								tweetTopics.innerHTML += " | ";
+							}
+						}
+
+
+						tweet.className = "tweet newTweet";
+						
+						var c = document.getElementById(container);
+						c.insertBefore(tweet, c.firstChild);
+						$(".newTweet").hide();
+						$(".newTweet").slideDown("fast");
+
+						$(".newTweet").className = "tweet";
+
+
+					}
+
+				}
+			}
+			break;
 							
 	}
 

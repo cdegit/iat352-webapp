@@ -7,6 +7,7 @@ require("db.php");
 
 $q = $_GET["query"];
 
+// get all posts where their name contains the query entered by the user
 $query = "SELECT id, title, author FROM posts WHERE title LIKE '%" . $q . "%'";
 
 $result = mysqli_query($connection, $query);
@@ -21,22 +22,28 @@ if ($result) {
 	exit();
 }
 
+// Build the xml to be returned, one entry for each post
+// create the dom document itself
 $doc = new DOMDocument();
 $domposts = $doc->createElement("posts");
 $doc->appendChild($domposts);
 
 foreach ($posts as $post) {
+	// create the post
 	$dompost = $doc->createElement("post");
 	$domposts->appendChild($dompost);
 
+	// add the id attribute
 	$id = $doc->createAttribute("id");
 	$id->value = $post['id'];
 	$dompost->appendChild($id);
 
+	// add the author attribute
 	$author = $doc->createAttribute("author");
 	$author->value = $post['author'];
 	$dompost->appendChild($author);	
 
+	// add the title
 	$title = $doc->createElement("title", $post['title']);
 	$dompost->appendChild($title);
 }

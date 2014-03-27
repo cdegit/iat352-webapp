@@ -84,9 +84,11 @@ function displayProfile($connection, $username) {
 				<div id="userTweets">
 					<h3>Recent Tweets</h3>
 					<a href="https://twitter.com/<?php echo $user['twitter']; ?>"><img src="twitter_logo_small.png" id="twitterLogo"/></a>
-					<?php
-					displayTweets($connection, $user['twitter']);
-					?>
+					<div id="tweetContainer">
+						<?php
+						displayTweets($connection, $user['twitter']);
+						?>
+					</div>
 				</div>
 				<?php } ?>
 

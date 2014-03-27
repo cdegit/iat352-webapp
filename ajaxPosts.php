@@ -25,25 +25,32 @@ if ($result) {
 	exit();
 }
 
+// create the dom document to attach everything else to
 $doc = new DOMDocument();
 $domposts = $doc->createElement("posts");
 $doc->appendChild($domposts);
 
+// for each post, create a new element and add the needed data
 foreach ($posts as $post) {
+	// create the post
 	$dompost = $doc->createElement("post");
 	$domposts->appendChild($dompost);
 
+	// add the id attribute
 	$id = $doc->createAttribute("id");
 	$id->value = $post['id'];
 	$dompost->appendChild($id);
 
+	// add the author attribute
 	$author = $doc->createAttribute("author");
 	$author->value = $post['author'];
 	$dompost->appendChild($author);
 
+	// add the title
 	$title = $doc->createElement("title", $post['title']);
 	$dompost->appendChild($title);
 
+	// add the content
 	$content = $doc->createElement("content", $post['content']);
 	$dompost->appendChild($content);
 
@@ -52,16 +59,18 @@ foreach ($posts as $post) {
 	$result = mysqli_query($connection, $query);
 	if ($result) $topics = mysqli_fetch_all($result, MYSQLI_ASSOC);
 	
-
+	// create a new element to store all the topics
 	$domtopics = $doc->createElement("topics");
 	$dompost->appendChild($domtopics);
 
+	// add all the topics
 	foreach($topics as $topic) {
 		$domtopic = $doc->createElement("topic", $topic['topicName']);
 		$domtopics->appendChild($domtopic);
 	}
 }
 
+// for tags, we want to determine if the current user is following the tag or not, and display the appropriate link
 $follow = $doc->createAttribute("following");
 if($tag != "all") { 
 	if(isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'learner') { 

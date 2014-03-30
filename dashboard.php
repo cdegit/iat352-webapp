@@ -8,18 +8,18 @@ require_once("displayTwitter.php");
 function displayDashboard($connection) {
 
 	// get the posts from users they follow
-	$query = "SELECT author, id, content, title FROM posts WHERE author IN (SELECT contributorName FROM following_users WHERE learnerName = '" . $_SESSION['valid_user'] . "') ORDER BY timestamp DESC";
+	$query = "SELECT author, id, content, title, timestamp FROM posts WHERE author IN (SELECT contributorName FROM following_users WHERE learnerName = '" . $_SESSION['valid_user'] . "') ORDER BY timestamp DESC";
 	$result = mysqli_query($connection, $query);
 	$posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 	// get posts from topics they follow
-	$topicQuery = "SELECT posts.author, posts.id, posts.content, posts.title FROM posts, post_topics WHERE post_topics.postId = posts.id AND post_topics.topicName IN (SELECT topicName FROM following_topics WHERE learnerName = '" . $_SESSION['valid_user'] . "') ORDER BY timestamp DESC";
+	$topicQuery = "SELECT posts.author, posts.id, posts.content, posts.title, posts.timestamp FROM posts, post_topics WHERE post_topics.postId = posts.id AND post_topics.topicName IN (SELECT topicName FROM following_topics WHERE learnerName = '" . $_SESSION['valid_user'] . "') ORDER BY timestamp DESC";
 	$topicResult = mysqli_query($connection, $topicQuery);
 	$topics = mysqli_fetch_all($topicResult, MYSQLI_ASSOC);	
 
-	$all = array_merge($posts, $topics);
-	// TODO: write own function to merge while maintaining timestamp
-	// think mergesort
+	$all = timestampMerge($posts, $topics);
+
+
 
 	?>
 	<article id='dashboard'>
@@ -90,4 +90,36 @@ function displayDashboard($connection) {
 
 }
 
+// added to allow the dashboard to actually appear in the correct order without duplicates
+function timestampMerge($arr1, $arr2) {
+	$newLength = count($arr1) + count($arr2); // may not actually be the final new length
+	$arr3 = array();
+
+	$arr1pos = 0;
+	$arr2pos = 0;
+
+	for($i = 0; $i < $newLength; $i++) {
+		if($arr1pos < count($arr1) && $arr2pos >= count($arr2)) { // if you have finished array 2, but not array 1
+			$arr3 = array_merge($arr3, $arr1);
+			break;
+		} elseif($arr1pos >= count($arr1) && $arr2pos < count($arr2)) { // if you have finished array 1, but not array 2
+			$arr3 = array_merge($arr3, $arr2);
+			break;
+		}elseif ($arr1pos >= count($arr1) && $arr2pos >= count($arr2)) {
+			// issue introduced when you handle duplicates; if you're done both arrays, just break
+			break;
+		}elseif(strtotime($arr1[$arr1pos]['timestamp']) > strtotime($arr2[$arr2pos]['timestamp'])) { // if the timestamp of array1's element is greater than the timestamp of array2's element
+			$arr3[$i] = $arr1[$arr1pos];
+			$arr1pos++;
+		} elseif ($arr1[$arr1pos]['id'] == $arr2[$arr2pos]['id'] ) { // if they are the same post (duplicates are introduced by following an author and tags they post in)
+			$arr3[$i] = $arr1[$arr1pos];
+			$arr1pos++;
+			$arr2pos++;
+		} else { // if the timestamp of array1's element is less than than the timestamp of array2's element
+			$arr3[$i] = $arr2[$arr2pos]; 
+			$arr2pos++;
+		}
+	}
+	return $arr3;
+}
 ?>

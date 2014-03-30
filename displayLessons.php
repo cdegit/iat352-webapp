@@ -85,7 +85,9 @@ function displayLessons($connection, $tag) {
 				if (count($tweets) > 0) {
 					echo "<div id='publicTweets'>";
 					echo "<h3>Recent Tweets</h3>";
+					echo "<div id='tweetSet'>";
 					drawTweets($connection, $tweets);
+					echo "</div>";
 					echo "</div>";
 				}
 				?>

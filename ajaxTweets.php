@@ -16,10 +16,7 @@ $userTwitter = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
 fetchTweets($connection, $userTwitter['twitter']);
 
-if($user != "all") {
-	$query = "SELECT tweets.id, tweets.text, tweets.authorTwitter, tweets.timestamp FROM tweets, users WHERE tweets.authorTwitter = users.twitter AND users.name = '" . $user . "'";
-} 
-
+$query = "SELECT tweets.id, tweets.text, tweets.authorTwitter, tweets.timestamp FROM tweets, users WHERE tweets.authorTwitter = users.twitter AND users.name = '" . $user . "'";
 $result = mysqli_query($connection, $query);
 
 $tweets = [];

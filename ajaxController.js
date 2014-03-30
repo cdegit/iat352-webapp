@@ -35,61 +35,18 @@ function ajaxReq(type, params, container) {
 			xmlhttp.open("GET", "ajaxTweets.php?user=" + params[0] + "&time=" + params[1], true);
 			xmlhttp.onreadystatechange=function() {
 				if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+					updateTweets(container, xmlhttp, params);
 
-					var xml = xmlhttp.responseText;
+				}
+			}
+			break;
 
-					if (window.DOMParser)
-					{
-						parser=new DOMParser();
-						xmlDoc=parser.parseFromString(xml,"text/xml");
-					}
-					else // Internet Explorer
-					{
-						xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
-						xmlDoc.async=false;
-						xmlDoc.loadXML(xml);
-					}
-					
-					var tweets = xmlDoc.getElementsByTagName("tweet");
-
-					for(i = 0; i < tweets.length; i++) {
-						var tweet = document.createElement("div");
-						tweet.className = "tweet";
-						
-
-						var content = document.createElement("p");
-						content.innerHTML = tweets[i].childNodes[0].textContent;
-						tweet.appendChild(content);
-
-						var tweetTopics = document.createElement("div");
-						tweetTopics.className = "tweetTopics";
-						tweet.appendChild(tweetTopics);
-
-						var t = tweets[i].getElementsByTagName("topic");
-						for(var j = 0; j < t.length; j++) {
-							var topic = document.createElement("a");
-							topic.href = "controller.php?action=displaylessons&topic=" + t[j].textContent;
-							topic.innerHTML = capitaliseFirstLetter(t[j].textContent);
-							tweetTopics.appendChild(topic);
-
-							if (j != t.length - 1 ) {
-								tweetTopics.innerHTML += " | ";
-							}
-						}
-
-
-						tweet.className = "tweet newTweet";
-						
-						var c = document.getElementById(container);
-						c.insertBefore(tweet, c.firstChild);
-						$(".newTweet").hide();
-						$(".newTweet").slideDown("fast");
-
-						$(".newTweet").className = "tweet";
-
-
-					}
-
+		case 4: // public tweets
+			// very very similar to normally getting tweets
+			xmlhttp.open("GET", "ajaxPublicTweets.php?topic=" + params[0], true);
+			xmlhttp.onreadystatechange=function() {
+				if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+					publicTweets(container, xmlhttp, params);
 				}
 			}
 			break;
@@ -274,6 +231,137 @@ function searchPosts(container, xmlhttp, params) {
 	}
 
 	$("#searchResults").show("fast");
+}
+
+function updateTweets(container, xmlhttp, params) {
+	var xml = xmlhttp.responseText;
+
+	if (window.DOMParser)
+	{
+		parser=new DOMParser();
+		xmlDoc=parser.parseFromString(xml,"text/xml");
+	}
+	else // Internet Explorer
+	{
+		xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+		xmlDoc.async=false;
+		xmlDoc.loadXML(xml);
+	}
+	
+	var tweets = xmlDoc.getElementsByTagName("tweet");
+
+	for(i = 0; i < tweets.length; i++) {
+		var tweet = document.createElement("div");
+		tweet.className = "tweet";
+		
+
+		var content = document.createElement("p");
+		content.innerHTML = tweets[i].childNodes[0].textContent;
+		tweet.appendChild(content);
+
+		var t = tweets[i].getElementsByTagName("topic");
+		
+		if (t.length > 0) {
+			var tweetTopics = document.createElement("div");
+			tweetTopics.className = "tweetTopics";
+			tweet.appendChild(tweetTopics);
+
+			for(var j = 0; j < t.length; j++) {
+				var topic = document.createElement("a");
+				topic.href = "controller.php?action=displaylessons&topic=" + t[j].textContent;
+				topic.innerHTML = capitaliseFirstLetter(t[j].textContent);
+				tweetTopics.appendChild(topic);
+
+				if (j != t.length - 1 ) {
+					tweetTopics.innerHTML += " | ";
+				}
+			}
+		}
+
+		tweet.className = "tweet newTweet";
+		
+		var c = document.getElementById(container);
+		c.insertBefore(tweet, c.firstChild);
+		$(".newTweet").hide();
+		$(".newTweet").slideDown("fast");
+
+		$(".newTweet").className = "tweet";
+
+
+	}	
+}
+
+function publicTweets(container, xmlhttp, params) {
+	var c = document.getElementById(container);
+	c.innerHTML = "";
+
+	var xml = xmlhttp.responseText;
+
+	if (window.DOMParser)
+	{
+		parser=new DOMParser();
+		xmlDoc=parser.parseFromString(xml,"text/xml");
+	}
+	else // Internet Explorer
+	{
+		xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+		xmlDoc.async=false;
+		xmlDoc.loadXML(xml);
+	}
+	
+	var tweets = xmlDoc.getElementsByTagName("tweet");
+
+	for(i = 0; i < tweets.length; i++) {
+		var tweet = document.createElement("div");
+		tweet.className = "tweet";
+
+		var authors = document.createElement("h4");
+
+		var author = document.createElement("a");
+		author.href = "controller.php?action=user&name=" + tweets[i].getAttributeNode("author").nodeValue;
+		author.innerHTML = tweets[i].getAttributeNode("author").nodeValue; 
+		authors.appendChild(author);
+
+		authors.innerHTML = authors.innerHTML + " | ";
+
+		var authorTwitter = document.createElement("a");
+		authorTwitter.href = "https://twitter.com/" + tweets[i].getAttributeNode("authorTwitter").nodeValue;
+		authorTwitter.innerHTML = "@" + tweets[i].getAttributeNode("authorTwitter").nodeValue;
+		authors.appendChild(authorTwitter);
+
+		authors.innerHTML = authors.innerHTML + ":";
+
+		tweet.appendChild(authors);
+		
+
+		var content = document.createElement("p");
+		content.innerHTML = tweets[i].childNodes[0].textContent;
+		tweet.appendChild(content);
+
+		var t = tweets[i].getElementsByTagName("topic");
+		
+		if (t.length > 0) {
+			var tweetTopics = document.createElement("div");
+			tweetTopics.className = "tweetTopics";
+			tweet.appendChild(tweetTopics);
+
+			for(var j = 0; j < t.length; j++) {
+				var topic = document.createElement("a");
+				topic.href = "controller.php?action=displaylessons&topic=" + t[j].textContent;
+				topic.innerHTML = capitaliseFirstLetter(t[j].textContent);
+				tweetTopics.appendChild(topic);
+
+				if (j != t.length - 1 ) {
+					tweetTopics.innerHTML += " | ";
+				}
+			}
+		}
+
+		
+		var c = document.getElementById(container);
+		c.appendChild(tweet);
+
+	}	
 }
 
 // From: http://stackoverflow.com/questions/1026069/capitalize-the-first-letter-of-string-in-javascript

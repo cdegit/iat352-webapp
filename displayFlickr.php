@@ -35,6 +35,10 @@ function displayFlickrPhotos($connection, $username) {
 			fetchFlickrPhotos($connection, $username);
 		}
 
+		// update all timestamps to current time so caching actually works
+		//$query = "UPDATE flickr_photos SET timestamp=now() WHERE authorFlickr = '" . $username . "'";
+	//	$result = mysqli_query($connection, $query);
+
 		// get all photos for this user
 		$query = "SELECT id, url, flickrUrl FROM flickr_photos WHERE authorFlickr = '" . $username . "' ORDER BY id DESC LIMIT 9";
 		$result = mysqli_query($connection, $query);
@@ -69,6 +73,11 @@ function fetchUid($username) {
 	$user_id = "";
 	$flickr = urlencode($username);
 	$url ="http://flickr.com/services/rest/?method=flickr.people.findByUsername"."&username=".$flickr."&api_key=".$api_key;
+	// update all timestamps to current time so caching actually works
+	//	$query = "UPDATE flickr_photos SET timestamp=now() WHERE authorFlickr = '" . $username . "'";
+//		$result = mysqli_query($connection, $query);
+
+	
 	@$xml = simplexml_load_file($url);
 
 	if (!$xml || !isset($xml)) { // if the connection failed and we couldn't load any images
@@ -96,8 +105,14 @@ function fetchFlickrPhotos($connection, $username) {
 			return false;
 		} else {	
 			cachePhotos($connection, $username, $xml);
+			// update all timestamps to current time so caching actually works
+		$query = "UPDATE flickr_photos SET timestamp=now() WHERE authorFlickr = '" . $username . "'";
+		$result = mysqli_query($connection, $query);
+
+	
 		}
 	} else {
+		
 		return false;
 	}
 }

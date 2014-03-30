@@ -93,20 +93,24 @@ $(document).ready(function() {
 
 
 	// AJAX Callers
+
+	// Switch topic when viewing posts
 	$(".dropdownTopics li a").click(function(event) {
 		event.preventDefault();
 		var params = new Array();
 		params[0] = $(this).html();
 		ajaxReq(1, params, "lessonsSet");
+		ajaxReq(4, params, "tweetSet");
 	});
 
+	// Search
 	$("#search input").bind("change paste keyup", function() {
-		// search
 		var params = new Array();
 		params[0] = $(this).val();
 		ajaxReq(2, params, "searchResults");
 	});
 
+	// get new tweets if on a user's profile
 	var time = Math.round(Date.now() / 1000);
 
 	if ($("#userBio").length) {

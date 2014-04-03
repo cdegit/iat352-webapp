@@ -25,7 +25,7 @@ function drawHeader() {
 						<li><a href="controller.php?action=displaylessons&topic=all">Lessons</a></li>
 						<li><a href="controller.php?action=displayusers&sort=name">Users</a></li>
 						<li><a href="controller.php?action=about">About</a></li>
-						<li><a href="">Author</a></li>
+						<li><a href="controller.php?action=author">Author</a></li>
 					</ul>
 				</nav>
 

@@ -12,7 +12,7 @@ body {
 	height: 100%;
 }
 
-h1 {
+h1, h2 {
 	font-weight: 300;
 }
 
@@ -847,4 +847,16 @@ article article {
 
 .searchAuthor:hover {
 	color: #fff;
+}
+
+@media (max-width: 1550px) {
+	#socialMedia {
+		position: relative;	
+		left: 0px;
+		margin: 0px;
+	}
+}
+
+#author, #about {
+	max-width: 600px;
 }

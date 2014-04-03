@@ -115,14 +115,16 @@ $(document).ready(function() {
 
 	if ($("#userBio").length) {
 		// if we're on a user's bio
-		window.setInterval(function(){
-	  		var params = new Array();
-	  		var name = $("#userStats h1").html();
-			params[0] = name.toLowerCase();
-			params[1] = time;
-			ajaxReq(3, params, "tweetContainer");
-			time = Math.round(Date.now() / 1000);
-		}, 30000); // check every 30 seconds. This is fairly frequent, but doesn't exceed Twitter's API limits. 
+		if ($("#userTweets").length) { // if this user actually has tweets enabled
+			window.setInterval(function(){
+		  		var params = new Array();
+		  		var name = $("#userStats h1").html();
+				params[0] = name.toLowerCase();
+				params[1] = time;
+				ajaxReq(3, params, "tweetContainer");
+				time = Math.round(Date.now() / 1000);
+			}, 30000); // check every 30 seconds. This is fairly frequent, but doesn't exceed Twitter's API limits. 
+		}
 	}
 
 });

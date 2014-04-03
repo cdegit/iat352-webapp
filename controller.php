@@ -13,6 +13,7 @@ require_once("error.php");
 require_once("dashboard.php");
 require_once("userSettings.php");
 require_once("about.php");
+require_once("author.php");
 
 session_start();
 
@@ -102,6 +103,7 @@ if (isset($_GET['action'])) {
 			break;
 
 		case 'author':
+			authorPage();
 			break;
 	}
 } else {

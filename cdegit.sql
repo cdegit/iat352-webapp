@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2014 at 01:02 AM
+-- Generation Time: Apr 03, 2014 at 01:12 AM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.6
 
@@ -43,33 +43,33 @@ CREATE TABLE IF NOT EXISTS `flickr_photos` (
 --
 
 INSERT INTO `flickr_photos` (`id`, `authorFlickr`, `url`, `timestamp`, `flickrUrl`) VALUES
-('12746179535', 'Longleaf.Photography', 'http://static.flickr.com/7363/12746179535_249c4ea8df_s.jpg', '2014-03-07 06:46:25', 'http://www.flickr.com/photos/52767238@N02/12746179535/'),
-('12770499734', 'Longleaf.Photography', 'http://static.flickr.com/2893/12770499734_341d87125d_s.jpg', '2014-03-07 06:46:25', 'http://www.flickr.com/photos/52767238@N02/12770499734/'),
-('12793265684', 'Longleaf.Photography', 'http://static.flickr.com/5505/12793265684_b614a74081_s.jpg', '2014-03-07 06:46:24', 'http://www.flickr.com/photos/52767238@N02/12793265684/'),
-('12797792623', 'peterspencer49', 'http://static.flickr.com/7345/12797792623_85ffc87933_s.jpg', '2014-03-07 06:19:32', 'http://www.flickr.com/photos/35972709@N03/12797792623/'),
-('12800971425', 'peterspencer49', 'http://static.flickr.com/3778/12800971425_46da6084e9_s.jpg', '2014-03-07 06:19:32', 'http://www.flickr.com/photos/35972709@N03/12800971425/'),
-('12802151533', 'peterspencer49', 'http://static.flickr.com/3756/12802151533_c3d4d9cb06_s.jpg', '2014-03-07 06:19:31', 'http://www.flickr.com/photos/35972709@N03/12802151533/'),
-('12813888545', 'Longleaf.Photography', 'http://static.flickr.com/5532/12813888545_92474fef14_s.jpg', '2014-03-07 06:46:23', 'http://www.flickr.com/photos/52767238@N02/12813888545/'),
-('12813936855', 'Longleaf.Photography', 'http://static.flickr.com/3772/12813936855_f794f9f56d_s.jpg', '2014-03-07 06:46:23', 'http://www.flickr.com/photos/52767238@N02/12813936855/'),
-('12834341183', 'Longleaf.Photography', 'http://static.flickr.com/3729/12834341183_18a37368a4_s.jpg', '2014-03-07 06:46:22', 'http://www.flickr.com/photos/52767238@N02/12834341183/'),
-('12839510405', 'peterspencer49', 'http://static.flickr.com/7329/12839510405_98ab205151_s.jpg', '2014-03-07 06:19:30', 'http://www.flickr.com/photos/35972709@N03/12839510405/'),
-('12945712504', 'peterspencer49', 'http://static.flickr.com/7380/12945712504_f4152d2ffe_s.jpg', '2014-03-07 06:19:30', 'http://www.flickr.com/photos/35972709@N03/12945712504/'),
-('12950468525', 'peterspencer49', 'http://static.flickr.com/3672/12950468525_e6c56286c9_s.jpg', '2014-03-07 06:19:29', 'http://www.flickr.com/photos/35972709@N03/12950468525/'),
-('12969036195', 'Longleaf.Photography', 'http://static.flickr.com/7301/12969036195_4d9f75f878_s.jpg', '2014-03-07 06:46:20', 'http://www.flickr.com/photos/52767238@N02/12969036195/'),
-('12969486594', 'Longleaf.Photography', 'http://static.flickr.com/7402/12969486594_db3c076d61_s.jpg', '2014-03-07 06:46:20', 'http://www.flickr.com/photos/52767238@N02/12969486594/'),
-('12969505594', 'Longleaf.Photography', 'http://static.flickr.com/7403/12969505594_89e9cec07d_s.jpg', '2014-03-07 06:46:21', 'http://www.flickr.com/photos/52767238@N02/12969505594/'),
-('12970047313', 'peterspencer49', 'http://static.flickr.com/7301/12970047313_67e121fb9c_s.jpg', '2014-03-07 06:19:28', 'http://www.flickr.com/photos/35972709@N03/12970047313/'),
-('12973459625', 'peterspencer49', 'http://static.flickr.com/7354/12973459625_2aab5e437f_s.jpg', '2014-03-07 06:19:28', 'http://www.flickr.com/photos/35972709@N03/12973459625/'),
-('12976394164', 'peterspencer49', 'http://static.flickr.com/2455/12976394164_784542bc4f_s.jpg', '2014-03-07 06:19:27', 'http://www.flickr.com/photos/35972709@N03/12976394164/'),
-('8725709151', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7363/8725709151_65cb5efa80_s.jpg', '2014-03-06 01:43:01', 'http://www.flickr.com/photos/34864759@N05/8725709151/'),
-('8725855353', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7284/8725855353_a5f0a134f0_s.jpg', '2014-03-06 01:42:47', 'http://www.flickr.com/photos/34864759@N05/8725855353/'),
-('8725858909', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7372/8725858909_62a175764f_s.jpg', '2014-03-06 01:42:48', 'http://www.flickr.com/photos/34864759@N05/8725858909/'),
-('8725861875', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7365/8725861875_b747d91548_s.jpg', '2014-03-06 01:42:49', 'http://www.flickr.com/photos/34864759@N05/8725861875/'),
-('8725864453', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7286/8725864453_0153e450fb_s.jpg', '2014-03-06 01:43:00', 'http://www.flickr.com/photos/34864759@N05/8725864453/'),
-('8725867927', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7384/8725867927_86ee5bd2a7_s.jpg', '2014-03-06 01:42:49', 'http://www.flickr.com/photos/34864759@N05/8725867927/'),
-('8725869167', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7443/8725869167_c6223bdf33_s.jpg', '2014-03-06 01:43:00', 'http://www.flickr.com/photos/34864759@N05/8725869167/'),
-('8726822966', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7384/8726822966_3b34b124a5_s.jpg', '2014-03-06 01:43:02', 'http://www.flickr.com/photos/34864759@N05/8726822966/'),
-('8726980988', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7449/8726980988_ba8d7ae3b2_s.jpg', '2014-03-06 01:42:50', 'http://www.flickr.com/photos/34864759@N05/8726980988/');
+('12813936855', 'Longleaf.Photography', 'http://static.flickr.com/3772/12813936855_f794f9f56d_s.jpg', '2014-03-30 20:06:48', 'http://www.flickr.com/photos/52767238@N02/12813936855/'),
+('12834341183', 'Longleaf.Photography', 'http://static.flickr.com/3729/12834341183_18a37368a4_s.jpg', '2014-03-30 20:06:48', 'http://www.flickr.com/photos/52767238@N02/12834341183/'),
+('12969036195', 'Longleaf.Photography', 'http://static.flickr.com/7301/12969036195_4d9f75f878_s.jpg', '2014-03-30 20:06:48', 'http://www.flickr.com/photos/52767238@N02/12969036195/'),
+('12969486594', 'Longleaf.Photography', 'http://static.flickr.com/7402/12969486594_db3c076d61_s.jpg', '2014-03-30 20:06:48', 'http://www.flickr.com/photos/52767238@N02/12969486594/'),
+('12969505594', 'Longleaf.Photography', 'http://static.flickr.com/7403/12969505594_89e9cec07d_s.jpg', '2014-03-30 20:06:48', 'http://www.flickr.com/photos/52767238@N02/12969505594/'),
+('13104006415', 'Longleaf.Photography', 'http://static.flickr.com/7357/13104006415_801c2092d4_s.jpg', '2014-03-30 20:06:48', 'http://www.flickr.com/photos/52767238@N02/13104006415/'),
+('13125718544', 'Longleaf.Photography', 'http://static.flickr.com/7375/13125718544_8f65ccd8d2_s.jpg', '2014-03-30 20:06:48', 'http://www.flickr.com/photos/52767238@N02/13125718544/'),
+('13242197753', 'Longleaf.Photography', 'http://static.flickr.com/3788/13242197753_c9c6e1631f_s.jpg', '2014-03-30 20:06:48', 'http://www.flickr.com/photos/52767238@N02/13242197753/'),
+('13265326213', 'Longleaf.Photography', 'http://static.flickr.com/7197/13265326213_2775378c05_s.jpg', '2014-03-30 20:06:48', 'http://www.flickr.com/photos/52767238@N02/13265326213/'),
+('13455989165', 'peterspencer49', 'http://static.flickr.com/7184/13455989165_be1c37899d_s.jpg', '2014-04-02 22:04:12', 'http://www.flickr.com/photos/35972709@N03/13455989165/'),
+('13471452973', 'peterspencer49', 'http://static.flickr.com/3673/13471452973_1df2a90265_s.jpg', '2014-04-02 22:04:12', 'http://www.flickr.com/photos/35972709@N03/13471452973/'),
+('13474996065', 'peterspencer49', 'http://static.flickr.com/5331/13474996065_68a98fb22e_s.jpg', '2014-04-02 22:04:12', 'http://www.flickr.com/photos/35972709@N03/13474996065/'),
+('13492587473', 'peterspencer49', 'http://static.flickr.com/2919/13492587473_2d8791557b_s.jpg', '2014-04-02 22:04:12', 'http://www.flickr.com/photos/35972709@N03/13492587473/'),
+('13505900933', 'peterspencer49', 'http://static.flickr.com/3756/13505900933_e7f6b7dc06_s.jpg', '2014-04-02 22:04:12', 'http://www.flickr.com/photos/35972709@N03/13505900933/'),
+('13518379223', 'peterspencer49', 'http://static.flickr.com/7164/13518379223_3171b7844c_s.jpg', '2014-04-02 22:04:12', 'http://www.flickr.com/photos/35972709@N03/13518379223/'),
+('13541553663', 'peterspencer49', 'http://static.flickr.com/7069/13541553663_7eae951096_s.jpg', '2014-04-02 22:04:12', 'http://www.flickr.com/photos/35972709@N03/13541553663/'),
+('13567906943', 'peterspencer49', 'http://static.flickr.com/3818/13567906943_8f6bb8c602_s.jpg', '2014-04-02 22:04:12', 'http://www.flickr.com/photos/35972709@N03/13567906943/'),
+('13589475643', 'peterspencer49', 'http://static.flickr.com/7139/13589475643_70e87428a3_s.jpg', '2014-04-02 22:04:12', 'http://www.flickr.com/photos/35972709@N03/13589475643/'),
+('8725709151', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7363/8725709151_65cb5efa80_s.jpg', '2014-03-30 20:39:14', 'http://www.flickr.com/photos/34864759@N05/8725709151/'),
+('8725855353', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7284/8725855353_a5f0a134f0_s.jpg', '2014-03-30 20:39:14', 'http://www.flickr.com/photos/34864759@N05/8725855353/'),
+('8725858909', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7372/8725858909_62a175764f_s.jpg', '2014-03-30 20:39:14', 'http://www.flickr.com/photos/34864759@N05/8725858909/'),
+('8725861875', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7365/8725861875_b747d91548_s.jpg', '2014-03-30 20:39:14', 'http://www.flickr.com/photos/34864759@N05/8725861875/'),
+('8725864453', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7286/8725864453_0153e450fb_s.jpg', '2014-03-30 20:39:14', 'http://www.flickr.com/photos/34864759@N05/8725864453/'),
+('8725867927', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7384/8725867927_86ee5bd2a7_s.jpg', '2014-03-30 20:39:14', 'http://www.flickr.com/photos/34864759@N05/8725867927/'),
+('8725869167', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7443/8725869167_c6223bdf33_s.jpg', '2014-03-30 20:39:14', 'http://www.flickr.com/photos/34864759@N05/8725869167/'),
+('8726822966', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7384/8726822966_3b34b124a5_s.jpg', '2014-03-30 20:39:14', 'http://www.flickr.com/photos/34864759@N05/8726822966/'),
+('8726980988', 'Willamette Valley Dog & Cat Motel', 'http://static.flickr.com/7449/8726980988_ba8d7ae3b2_s.jpg', '2014-03-30 20:39:14', 'http://www.flickr.com/photos/34864759@N05/8726980988/');
 
 -- --------------------------------------------------------
 
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `following_topics` (
   `topicName` varchar(45) NOT NULL,
   UNIQUE KEY `id_2` (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `following_topics`
@@ -92,9 +92,7 @@ CREATE TABLE IF NOT EXISTS `following_topics` (
 
 INSERT INTO `following_topics` (`id`, `learnerName`, `topicName`) VALUES
 (17, 'number1learner', 'sleep sort'),
-(18, 'number1learner', 'python'),
-(19, 'cdegit', 'lua'),
-(20, 'cdegit', 'hash table');
+(18, 'number1learner', 'python');
 
 -- --------------------------------------------------------
 
@@ -109,18 +107,14 @@ CREATE TABLE IF NOT EXISTS `following_users` (
   `contributorName` varchar(45) NOT NULL,
   UNIQUE KEY `id_2` (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `following_users`
 --
 
 INSERT INTO `following_users` (`id`, `learnerName`, `contributorName`) VALUES
-(7, 'number1learner', 'wallacewells'),
-(8, 'cdegit', 'envyadams'),
-(9, 'cdegit', 'scottpilgrim'),
-(10, 'cdegit', 'wallacewells'),
-(11, 'cdegit', 'stevenstills');
+(7, 'number1learner', 'wallacewells');
 
 -- --------------------------------------------------------
 
@@ -316,40 +310,46 @@ CREATE TABLE IF NOT EXISTS `tweets` (
 --
 
 INSERT INTO `tweets` (`id`, `authorTwitter`, `text`, `tutorTweet`, `timestamp`) VALUES
-('438053971089821696', 'Twitter', 'RT @twittertv: ICYMI: #PremioLoNuestro on @Univision  lit up Twitter as Latin musicâ€™s biggest stars gathered to celebrate https://t.co/6p45â€¦', 0, '2014-03-04 06:42:38'),
-('438106706304700416', 'Twitter', 'RT @TwitterData: #Sochi2014: Two weeks of #Olympics animated in 60 seconds #dataviz \nhttp://t.co/30Zu465ZRJ http://t.co/M4foO8DWP4', 0, '2014-03-04 06:42:38'),
-('439460423713431552', 'IATSU', 'We''re excited to host the turn up function of the CENTURY with @CMNSU\n\nTickets available at: https://t.co/1AuO8Nmrnn', 0, '2014-03-07 05:51:11'),
-('439514266454863872', 'Twitter', 'RT @TwitterMovies: Ahead of the 86th #Oscars party, Twitter is buzzing: https://t.co/MTWbkOyPEW', 0, '2014-03-04 06:42:38'),
-('439901145834606592', 'IATSU', 'Interested in life as a Google Engineer? Here''s a chance to get a brief interview with one via G+ Hangouts!\nhttp://t.co/UlxEXBNORG', 0, '2014-03-07 05:51:11'),
-('440340258140323842', 'Twitter', 'The envelope pleaseâ€¦.to @TheEllenShow - this is now the most re-tweeted Tweet with over 1 million RTs. Congrats!', 0, '2014-03-04 06:42:37'),
-('440378821242400770', 'Twitter', 'Our look at the #Oscars tonight: more than 14.7 million Tweets. Details: https://t.co/x32pmGlLhZ', 0, '2014-03-04 06:42:37'),
-('440547509304586241', 'IATSU', '#InspirationMondays ft. the use of snow to assist public space design.\n\nhttp://t.co/sc0gOH2HNS', 0, '2014-03-07 05:51:11'),
-('440602470092242944', 'IATSU', 'RT @verge: Exclusive: This is Cortana, Microsoft?s answer to Siri http://t.co/Q51HbAiQsX http://t.co/c4CAftVvQl', 0, '2014-03-07 05:59:39'),
-('440897711991054336', 'NightValeRadio', 'March comes in like a lion and goes out also like a lion - but different, altered, burdened by time &amp; new memories.', 0, '2014-03-07 05:54:29'),
-('440898436511330304', 'NightValeRadio', 'Also, our live recording of "Condos" is now available on iTunes. \nhttps://t.co/YbH29vwT8c', 0, '2014-03-07 05:54:29'),
-('440920626371371009', 'NightValeRadio', 'RT @TheLincolnDC: Important Info! Doors for @nightvaleradio have moved to 6:30PM! #NightValeLincoln', 0, '2014-03-07 05:54:30'),
-('441008825584209921', 'Twitter', 'There were 3.3 billion impressions of #Oscars Tweets. Read more:\nhttps://t.co/AOKHr4IoGB', 0, '2014-03-07 05:36:32'),
-('441154085568270336', 'IATSU', 'URGENT: get your candidacy applications in before Mar. 12, 2014 FOR IATSU Elections 2014-15! http://t.co/9xlgoH4Q6H http://t.co/iP9aKqyY1s', 0, '2014-03-07 05:51:12'),
-('441239414275309568', 'CompSciFact', 'Agile Database Development http://t.co/kDZCn58o24 audio interview with @martinfowler and @pramodsadalage', 0, '2014-03-07 05:51:24'),
-('441253278559797248', 'CompSciFact', 'Little programs versus big programs http://t.co/yrNQWiKRcJ', 0, '2014-03-07 05:51:24'),
-('441404238522875904', 'Twitter', 'RT @womeng: Our own @janetvh shares the story of #womeng + how we choose and measure our efforts. https://t.co/sEXmIwwPAK', 0, '2014-03-07 05:36:33'),
-('441411266507452416', 'CompSciFact', '"What''s the biggest problem developers face?"\n"Morale"\nfrom interview with @mfeathers', 0, '2014-03-07 05:51:24'),
-('441615302355582976', 'NightValeRadio', 'I know I sound like a broken record but tomorrow I''ll sound like a misfiring engine and, next week, continuous loud television static.', 0, '2014-03-07 05:54:30'),
-('441615707470831617', 'CompSciFact', 'FQL: A Functorial Query Language http://t.co/dEnHFuLKwu', 0, '2014-03-07 05:51:24'),
-('441620011019694080', 'NightValeRadio', 'Next 7 days of shows all sold out except still tickets for New Orleans and (very few) tickets for Houston. http://t.co/LhMDPrxLVs', 0, '2014-03-07 05:54:30'),
-('441652168349978624', 'CompSciFact', 'More accounts like @CompSciFact http://t.co/9YnJXctLnU', 0, '2014-03-07 05:51:24'),
-('441775629768609792', 'SFU', '@sibwalter You want to check out the school, because you want to go there. And, you had nothing else to do tonight. :-)', 0, '2014-03-07 05:51:30'),
-('441776377147441152', 'SFU', '@nellpunzell Really. I did not see this anywhere. Must have missed it. :-). http://t.co/4RRqpwFSQU #gongshowTV', 0, '2014-03-07 05:51:31'),
-('441776692416479232', 'SFU', '@nellpunzell but we hope you are enjoying the open house. #coolstuff', 0, '2014-03-07 05:51:31'),
-('441776781452787713', 'SFU', 'RT @SFUSurreyOH: SFU president Andrew Petter with Steve Dooley at open house. #SFUOH http://t.co/1CJZ2TTuRp', 0, '2014-03-07 05:51:31'),
-('441809317600428032', 'SFU', 'Dominic @sfueducation explores how to reduce university dropout rates at 3 Minute Thesis @SFU Finals, March 10! http://t.co/OQNIs880ow ^sr', 0, '2014-03-07 05:51:31'),
-('441814126252146688', 'CMDeGit', 'More test tweets. Almost done I swear. #c #isfor #cookie', 0, '2014-03-07 05:54:32'),
-('441814269907042304', 'CMDeGit', 'Wait no that wasn''t what I wanted to test. #cookie', 0, '2014-03-07 05:55:00'),
-('441829989021806592', 'iat352_tutor', 'Hey #python users: { Tutor } is the tool for you! #tutortweets are great', 1, '2014-03-07 06:58:14'),
-('441830185621405696', 'iat352_tutor', 'All programming languages are awesome, but #python and #lua are up on my top 10. #tutortweets What about you?', 1, '2014-03-07 06:58:14'),
-('441830363824812032', 'iat352_tutor', 'Well it''s been fun, #tutortweets and I''ll see you again soon.', 1, '2014-03-07 06:58:57'),
-('441830569442148352', 'iat352_tutor', 'Let''s post another so the feed looks nice and full', 0, '2014-03-07 07:00:00'),
-('441830631840829440', 'iat352_tutor', 'The twitter API is so much fun!', 0, '2014-03-07 07:00:00');
+('447118121384820737', 'SFU', 'RT @sfueducation: #SFU Burnaby All safety and security depts moving to Discovery 1 March 21 <a href=''http://ow.ly/uImE7''>http://t.co/vUwYXVtSIU</a> ^sr', 0, '2014-03-23 22:28:27'),
+('447131000792166400', 'SFU', 'RT @sfuhcs: No cases of measles at @SFU. Never been vaccinated? Prevent catching virus w/ vaccine. Info: <a href=''http://ow.ly/uO2QW''>http://t.co/YtwuqL86w0</a> ^jp ^sr', 0, '2014-03-23 22:28:27'),
+('447182183800008704', 'SFU', 'A snow blizzard in the east did not keep President Petter from Engaging with SFU alum from Toronto &amp; Montreal. <a href=''http://ht.ly/uQ1qm''>http://t.co/zlJL2LWhKa</a> ^sr', 0, '2014-03-23 22:28:27'),
+('447187918936113153', 'SFU', '@kathysaidthis Dears are cute. We care. :-)', 0, '2014-03-23 22:27:22'),
+('447414991931842560', 'SFU', 'RT @sfuhcs: No cases of measles at @SFU. Never been vaccinated? Prevent catching virus w/ vaccine. Info: <a href=''http://ow.ly/uO2QW''>http://t.co/YtwuqL86w0</a> ^jp ^sr', 0, '2014-03-23 22:28:27'),
+('448190467235008512', 'Twitter', 'RT @Support: Have questions about using Twitter? We''ll be doing a live Q&amp;A from @Support this afternoon at 3pm PST using the hashtag #Twitt?', 0, '2014-03-30 20:31:18'),
+('448813850297524224', 'Twitter', 'Challenging the access ban in Turkey: <a href=''https://blog.twitter.com/2014/challenging-the-access-ban-in-turkey''>https://t.co/k0BZnRo50D</a>', 0, '2014-03-30 20:31:18'),
+('448921559172780032', 'Twitter', 'Photos are getting more social. We\\''re unveiling two new features: photo tagging &amp; adding up to 4 photos per Tweet:<a href=''https://blog.twitter.com/2014/photos-just-got-more-social''>https://t.co/icJVBHrgwN</a>N', 0, '2014-03-30 20:31:18'),
+('449198561926733824', 'Twitter', 'RT @TwitterMusic: We\\''re pleased to announce we\\''ve teamed up with @billboard to create the first Billboard Twitter real-time Chart. https:<a href=''https://blog.twitter.com/2014/comingsoon-billboard-twitter-real-time-chart''>https://t.co/Oc5swh6Fy8</a>/?', 0, '2014-03-30 20:31:18'),
+('449433522378256384', 'CMDeGit', 'Boyfriend is attempting to repair a hard drive. His room is a computer graveyard. <a href=''http://twitter.com/CMDeGit/status/449433522378256384/photo/1''>http://t.co/pioXbveuva</a>', 0, '2014-03-28 06:31:32'),
+('449433574647689218', 'CMDeGit', 'Also he killed another computer in the process.', 0, '2014-03-28 06:31:32'),
+('449437757807419392', 'CMDeGit', 'The issue might be the master boot loader. Again. Why do we keep having issues with that???', 0, '2014-03-28 06:48:32'),
+('449438053354831872', 'CMDeGit', 'I say we but I haven''t actually contributed to this in any way at all. But in this house, computer issues are felt by all.', 0, '2014-03-28 06:49:32'),
+('449438122011402240', 'CMDeGit', 'At least when it results in the network being taken down.', 0, '2014-03-28 06:50:02'),
+('449691187566219264', 'Twitter', 'Victory for free expression in Turkish court: <a href=''https://blog.twitter.com/2014/victory-for-free-expression-in-turkish-court''>https://t.co/2uTmYA2MkB</a>', 0, '2014-03-30 20:31:18'),
+('450304923524005888', 'NightValeRadio', 'RT @johnroderick: Great time tonight performing with @ThrillingAdv and @NightValeRadio at the Moore Theater. Basically a total sex party.', 0, '2014-03-30 20:39:49'),
+('450305147663421440', 'NightValeRadio', 'RT @Annie_Savage: @MollyQuinn93 @ThrillingAdv @NightValeRadio HAHAHA! <a href=''http://twitter.com/Annie_Savage/status/450173797606252544/photo/1''>http://t.co/GWkaFR6RmI</a>', 0, '2014-03-30 20:39:49'),
+('450305649834872832', 'NightValeRadio', 'RT @hallublin: #ECCC - today come to: @NightValeRadio panel (10am, Hall A 611-614)\n@ThrillingAdv panel (12pm, Hall 6ABC, then signing @ 1:3?', 0, '2014-03-30 20:39:49'),
+('450314615969161216', 'NightValeRadio', 'We''re doing a panel at 10:30am in Hall A 611-614, &amp; then signing at level 3, booth 2702 from 12-1, and then we will vanish from your lives.', 0, '2014-03-30 20:39:49'),
+('450340841005936640', 'NightValeRadio', 'Correction: Our signing is from 1-2. Sorry about time being incorrect.', 0, '2014-03-30 20:39:49'),
+('450399974182752258', 'iat352_tutor', 'But now I need tags again. #tutortweet #lua Testing the API ignore me.', 1, '2014-03-30 22:31:37'),
+('450403230992719873', 'iat352_tutor', 'One more API test. #tutortweet #heapsort', 1, '2014-03-30 22:44:38'),
+('450403422223626240', 'iat352_tutor', 'Whoops. #tutortweet #heapsort I should fix my tweet parsing.', 1, '2014-03-30 22:45:22'),
+('450687850262953985', 'iat352_tutor', 'Hello world! #tutortweet #lua Testing APIs is fun!', 1, '2014-03-31 17:35:44'),
+('450785899194761217', '', 'RT @zanytomato: I\\''m so proud of everyone that walked off GAME_JAM. You are awesome &amp; lovely &amp; I\\''m sorry you went through this. http://t.c<a href=''http://indiestatik.com/2014/03/31/most-expensive-game-jam/''>http://t.co/flR0e74k1w</a>/?', 0, '2014-04-02 22:04:46'),
+('450839265824366592', '', 'Had our night our ruined by Shadow the Hedgehog. Wow.', 0, '2014-04-02 22:04:46'),
+('450839665151471616', '', 'Man I love it when entitled dudes continue to stand around and try to chat with you despite your obvious discomfort and disinterest.', 0, '2014-04-02 22:04:46'),
+('450840165607419904', '', 'Plus what did you even hope to get out of that, Shadow the Hedgehog? Seriously.', 0, '2014-04-02 22:04:46'),
+('450840901451907074', '', 'The 3 women hanging out together are all totally going to agree to run off with you into the night. Clearly. #whyshadowwhy', 0, '2014-04-02 22:04:46'),
+('450906656650440704', 'IATSU', 'BIG NEWS. #proudEC\n\n<a href=''http://iatsu.com/2014/04/new-iatsu-ec/''>http://t.co/2oh3kOxkvA</a>', 0, '2014-04-02 22:55:54'),
+('451023927075418112', 'CompSciFact', '"The illiterate of the 21st century will not be those who cannot read &amp; write but those who cannot learn, unlearn, &amp; relearn." Alvin Toffler', 0, '2014-04-02 22:03:54'),
+('451042355601108992', 'IATSU', 'RT @andrewhawr: It\\''s good to see that @JustinHMa will be staying on the board? RT @IATSU: BIG NEWS. #proudEC<a href=''http://iatsu.com/2014/04/new-iatsu-ec/''>http://t.co/L8REo9a332</a>2', 0, '2014-04-02 22:55:54'),
+('451042403286138880', 'IATSU', '@the_solimonster @robbiesebullen we don''t', 0, '2014-04-02 22:55:54'),
+('451049481224462337', 'IATSU', '\\"Democracy is so overrated.\\"<a href=''http://iatsu.com/2014/04/new-iatsu-ec/''>http://t.co/2oh3kOxkvA</a>vA', 0, '2014-04-02 22:55:54'),
+('451274748211634176', 'IATSU', '@CMNSU take a breather before the formal!\n\n<a href=''http://youtu.be/-0YSqeweJzw''>http://t.co/X56rtKgrvW</a>', 0, '2014-04-02 22:55:54'),
+('451373937629622273', 'CompSciFact', 'Connection between type theory and topology in a nutshell <a href=''http://ow.ly/vkNYv''>http://t.co/P9lOffShpt</a>', 0, '2014-04-02 22:03:54'),
+('451385111670718464', 'CompSciFact', 'Fallacies of distributed computing <a href=''http://bit.ly/xBoga''>http://t.co/K8e5Ms9qCa</a>', 0, '2014-04-02 22:03:54'),
+('451412666729660417', 'CompSciFact', 'The operad of temporal wiring diagrams: formalizing a graphical language for discrete-time processes <a href=''http://arxiv.org/abs/1307.6894''>http://t.co/UttmCUlu1Q</a>', 0, '2014-04-02 22:03:54'),
+('451471873315180544', 'CompSciFact', 'Computation and State Machines by Leslie Lamport <a href=''http://ow.ly/vmnEk''>http://t.co/7NlgI32chx</a> [pdf] via @old_sound, @tavisrudd', 0, '2014-04-02 22:03:54'),
+('451480928259301376', 'iat352_tutor', 'Time for another test!', 0, '2014-04-02 22:07:12');
 
 -- --------------------------------------------------------
 
@@ -363,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `tweet_topics` (
   `tweetId` varchar(24) NOT NULL,
   `topicName` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `tweet_topics`
@@ -379,7 +379,12 @@ INSERT INTO `tweet_topics` (`id`, `tweetId`, `topicName`) VALUES
 (7, '441819232964067329', 'lua'),
 (8, '441829989021806592', 'python'),
 (9, '441830185621405696', 'lua'),
-(10, '441830185621405696', 'python');
+(10, '441830185621405696', 'python'),
+(11, '449076536084148224', 'lua'),
+(12, '449076959742423040', 'php'),
+(13, '450399974182752258', 'lua'),
+(14, '450403422223626240', 'heapsort'),
+(15, '450687850262953985', 'lua');
 
 -- --------------------------------------------------------
 
@@ -412,9 +417,11 @@ INSERT INTO `users` (`email`, `name`, `password`, `description`, `twitter`, `fac
 ('kp@radiom.com', 'kimpine', 'aae2595301ff74b01a51ba1ed5cb4edfb3220689', '', 'SFU', '', '', 'contributor'),
 ('blueStreak@gmail.com', 'kniveschau', 'a9993e364706816aba3e25717850c26c9cd0d89d', '', 'CompSciFact', '', 'peterspencer49', 'contributor'),
 ('1@email.com', 'number1learner', '5c17c66585cc24b5f7d7d938c7d1ee92ef0f52cf', '', '', '', '', 'learner'),
-('rf@amazon.com', 'ramonaflowers', '6216f8a75fd5bb3d5f22b6f9958cdede3fc086c2', '', '', '', 'Longleaf.Photography', 'contributor'),
+('rf@amazon.com', 'ramonaflowers', '6216f8a75fd5bb3d5f22b6f9958cdede3fc086c2', '', 'CMDeGit', '', 'Longleaf.Photography', 'contributor'),
 ('sp@radiom.com', 'scottpilgrim', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Integer montes? Amet, augue urna. Diam mattis augue eros. Risus sed elementum sit eu. Sit porta mattis, augue, porttitor nisi sed, parturient sociis?', 'Twitter', '', '', 'contributor'),
 ('ss@radiom.com', 'stevenstills', 'a9993e364706816aba3e25717850c26c9cd0d89d', '', 'iat352_tutor', '', '', 'contributor'),
+('a@b', 'testusera', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', '', '', '', '', 'learner'),
+('b@a', 'testuserb', 'e9d71f5ee7c92d6dc9e92ffdad17b8bd49418f98', '', '', '', '', 'contributor'),
 ('ww@radiom.com', 'wallacewells', 'a9993e364706816aba3e25717850c26c9cd0d89d', 'Hello world!! :)', 'NightValeRadio', '', 'Willamette Valley Dog & Cat Motel', 'contributor'),
 ('neil@gmail.com', 'youngneil', '7c4a8d09ca3762af61e59520943dc26494f8941b', '', '', '', '', 'contributor');
 
@@ -446,9 +453,11 @@ INSERT INTO `user_settings` (`username`, `twitterActivated`, `flickrActivated`, 
 ('kimpine', 1, 1, 1, 0),
 ('kniveschau', 1, 1, 1, 1),
 ('number1learner', 1, 1, 0, 0),
-('ramonaflowers', 1, 1, 0, 1),
+('ramonaflowers', 1, 1, 1, 1),
 ('scottpilgrim', 1, 1, 1, 0),
 ('stevenstills', 1, 1, 1, 1),
+('testusera', 1, 1, 0, 0),
+('testuserb', 1, 1, 0, 0),
 ('wallacewells', 1, 1, 0, 1),
 ('youngneil', 1, 1, 0, 0);
 
